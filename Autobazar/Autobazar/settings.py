@@ -54,7 +54,7 @@ ROOT_URLCONF = 'Autobazar.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["./polls/temp"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
