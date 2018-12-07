@@ -4,40 +4,45 @@
     <meta charset="UTF-8">
     <title>Index page</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
+    <!--Import materialize.css-->
     {% load static %}
-    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" media="screen,projection"/>
 </head>
 <body>
 
- <nav>
-    <div class="nav-wrapper  indigo accent-3" >
-      <a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Logo jak sviňa</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="search.html"><i class="material-icons">search</i></a></li>
-      </ul>
+<nav>
+    <div class="nav-wrapper  indigo accent-3">
+        <a href="/" class="brand-logo">Autobazar</a>
+        <form>
+            <div class="input-field right">
+                <input id="search" type="search" required>
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                
+            </div>
+        </form>
     </div>
-  </nav>
+</nav>
 
 <h1>Index Page</h1>
 
- <footer class="page-footer  indigo accent-3">
-          <div class="container">
+<footer class="page-footer  indigo accent-3">
+    <div class="container">
 
-              <div class="col l6 s12">
-                <h5 class="white-text">Created by: </h5>
-                <p class="grey-text text-lighten-4">Antonín Mrkvica</p>
-              </div>
+        <div class="col l6 s12">
+            <h5 class="white-text">Created by: </h5>
+
+            <p class="grey-text text-lighten-4">Antonín Mrkvica</p>
+        </div>
 
 
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
             © 2018 Copyright
-            </div>
-          </div>
-        </footer>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>
