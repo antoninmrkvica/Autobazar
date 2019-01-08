@@ -6,12 +6,15 @@ class User(models.Model):
     is_admin = models.BooleanField(default=True)
     username = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
+    phone = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
+
 
 
 class Car(models.Model):
     name = models.CharField(max_length=50)
     images_paths = models.CharField(max_length=50, default=json.dumps([]))
-    #majitel/prodejce - from user
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     manufacture_date = models.CharField(max_length=50)
     killometres = models.CharField(max_length=50)
     owner_number = models.CharField(max_length=50)
