@@ -9,7 +9,14 @@ flex: 1 0 auto;
 }
 
 #logo{
-    padding-left: 20px;
     padding-right: 50px;
     font-size: 200%;
+}
+nav{
+    padding-left: 300px;
+}
+
+.pad10{
+
+    padding-left:30px;
 }

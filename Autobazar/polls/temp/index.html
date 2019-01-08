@@ -12,8 +12,8 @@
 </head>
 <body>
 
-<nav>
-    <div class="nav-wrapper  indigo accent-3">
+<nav class="top-nav">
+    <div class="nav-wrapper indigo accent-3">
         <ul class="left hide-on-med-and-down">
             <li><a href="/" id="logo">Autobazar</a></li>
             <li><a href="/buy">Chci koupit auto</a></li>
@@ -25,7 +25,7 @@
             <li><a href="/login">Login</a></li>
             <li><a href="/reg">Register</a></li>
             {% else %}
-            <li><a href="/logout">Logout</a></li>
+            <li><a href="/logout" class=" right-align">Logout</a></li>
             {% endif %}
 
         </ul>
@@ -33,85 +33,100 @@
 </nav>
 <br>
 
-<div class="row">
-    <div class="col s6">
-        <br>
-        <br>
-
-        <div class="card">
-            <div class="card-image">
-                <img src="images/sample-1.jpg">
-                <span class="card-title" style="color:black">Card Title</span>
-            </div>
-            <div class="card-content">
-                <p>I am a very simple card. I am good at containing small bits of information.
-                    I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-                <a href="#">This is a link</a>
-            </div>
-        </div>
-    </div>
-    <div class="col s6">
-
-        <br>
-        <br>
-
-        <div class="card">
-            <div class="card-image">
-                <img src="images/sample-1.jpg">
-                <span class="card-title" style="color:black">Card Title</span>
-            </div>
-            <div class="card-content">
-                <p>I am a very simple card. I am good at containing small bits of information.
-                    I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-                <a href="#">This is a link</a>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col s6">
-        <br>
-        <br>
-
-        <div class="card">
-            <div class="card-image">
-                <img src="images/sample-1.jpg">
-                <span class="card-title" style="color:black">Card Title</span>
-            </div>
-            <div class="card-content">
-                <p>I am a very simple card. I am good at containing small bits of information.
-                    I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-                <a href="#">This is a link</a>
-            </div>
-        </div>
-    </div>
-
+<div class="nav">
+    <ul id="slide-out" class="sidenav sidenav-fixed indigo accent-3">
+        <h5 class="center-align">Auta</h5>
+        <ul class="collapsible">
+            <li>
+                <div class="collapsible-header">Auto1</div>
+                <div class="collapsible-body indigo accent-3"><span class="pad10">model1</span></div>
+                <div class="collapsible-body indigo accent-3"><span class="pad10">model2</span></div>
+            </li>
+        </ul>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 </div>
 
+<main>
+    <div class="row">
+        <div class="col offset-s3">
+            <div class="row">
+                <div class="col s6">
+                    <br>
+                    <br>
 
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="images/sample-1.jpg">
+                            <span class="card-title" style="color:black">Card Title</span>
+                        </div>
+                        <div class="card-content">
+                            <p>I am a very simple card. I am good at containing small bits of information.
+                                I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">This is a link</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s6">
+
+                    <br>
+                    <br>
+
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="images/sample-1.jpg">
+                            <span class="card-title" style="color:black">Card Title</span>
+                        </div>
+                        <div class="card-content">
+                            <p>I am a very simple card. I am good at containing small bits of information.
+                                I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">This is a link</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col s6">
+                    <br>
+                    <br>
+
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="images/sample-1.jpg">
+                            <span class="card-title" style="color:black">Card Title</span>
+                        </div>
+                        <div class="card-content">
+                            <p>I am a very simple card. I am good at containing small bits of information.
+                                I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#">This is a link</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
 <footer class="page-footer  indigo accent-3">
-    <div class="container">
-
-        <div class="col l6 s12">
+    <div class="row">
+        <div class="col  offset-s3">
             <h5 class="white-text">Created by: </h5>
 
             <p class="grey-text text-lighten-4">Antonín Mrkvica</p>
         </div>
-
-
     </div>
-    <div class="footer-copyright">
-        <div class="container">
-            © 2018 Copyright
-        </div>
+
+
     </div>
 </footer>
-
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<script src="{% static 'js/materialize.min.js' %}"></script>
+<script src="{% static 'js/javascript.js' %}"></script>
 </body>
 </html>
