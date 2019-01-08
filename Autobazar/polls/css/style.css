@@ -10,4 +10,6 @@ flex: 1 0 auto;
 
 #logo{
     padding-left: 20px;
+    padding-right: 50px;
+    font-size: 200%;
 }

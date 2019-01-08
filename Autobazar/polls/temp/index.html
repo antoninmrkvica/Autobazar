@@ -14,15 +14,20 @@
 
 <nav>
     <div class="nav-wrapper  indigo accent-3">
-        <a href="/" id="logo" class="brand-logo">Autobazar</a>
+        <ul class="left hide-on-med-and-down">
+            <li><a href="/" id="logo">Autobazar</a></li>
+            <li><a href="/buy">Chci koupit auto</a></li>
+            <li><a href="/sell">Chci prodat auto</a></li>
+            <li><a href="/search"><i class="material-icons">search</i></a></li>
+        </ul>
         <ul class="right hide-on-med-and-down">
             {% if not logged %}
-                <li><a href="/login">Login</a></li>
-                <li><a href="/reg">Register</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/reg">Register</a></li>
             {% else %}
-                <li><a href="/logout">Logout</a></li>
+            <li><a href="/logout">Logout</a></li>
             {% endif %}
-            <li><a href="/search"><i class="material-icons">search</i></a></li>
+
         </ul>
     </div>
 </nav>
