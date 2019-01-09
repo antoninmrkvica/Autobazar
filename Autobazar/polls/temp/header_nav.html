@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Autobazar</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'temp/images/favicon.ico' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" media="screen,projection"/>
+</head>
+<body>
+
+<nav class="top-nav">
+    <div class="nav-wrapper indigo accent-3">
+        <ul class="left hide-on-med-and-down">
+            <li><a href="/" id="logo">Autobazar</a></li>
+            <li><a href="/buy">Chci koupit auto</a></li>
+            <li><a href="/sell">Chci prodat auto</a></li>
+            <li><a href="/search"><i class="material-icons">search</i></a></li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+            {% if not logged %}
+            <li><a href="/login">Login</a></li>
+            <li><a href="/reg">Register</a></li>
+            {% else %}
+            <li><a href="/logout" class=" right-align">Logout</a></li>
+            {% endif %}
+
+        </ul>
+    </div>
+</nav>
+<br>
+
+<div class="nav">
+    <ul id="slide-out" class="sidenav sidenav-fixed indigo accent-3">
+        <h5 class="center-align">Auta</h5>
+        <ul class="collapsible">
+            <li>
+                <div class="collapsible-header">Auto1</div>
+                <div class="collapsible-body indigo accent-3"><span class="pad10">model1</span></div>
+                <div class="collapsible-body indigo accent-3"><span class="pad10">model2</span></div>
+            </li>
+        </ul>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+</div>
