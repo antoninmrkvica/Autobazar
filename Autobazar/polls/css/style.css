@@ -14,9 +14,15 @@ flex: 1 0 auto;
 }
 nav{
     padding-left: 300px;
+
 }
 
 .pad10{
 
     padding-left:30px;
+}
+
+.nav{
+    color: white;
+
 }
