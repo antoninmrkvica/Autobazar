@@ -1,27 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Autobazar</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    {% load static %}
-    <link rel="shortcut icon" type="image/png" href="{% static 'temp/images/favicon.ico' %}"/>
-    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" media="screen,projection"/>
-</head>
-<body>
+{% include "header_nav.html" %}
 <main>
-    <nav>
-        <div class="nav-wrapper  indigo accent-3">
-            <a href="/" id="logo" class="brand-logo">Autobazar</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="/search"><i class="material-icons">search</i></a></li>
-            </ul>
-        </div>
-    </nav>
-    <br>
-
     <div class="row">
         <form method="post">
             {% csrf_token %}
@@ -57,23 +35,4 @@
 
     </div>
 </main>
-<footer class="page-footer  indigo accent-3">
-    <div class="container">
-
-        <div class="col l6 s12">
-            <h5 class="white-text">Created by: </h5>
-
-            <p class="grey-text text-lighten-4">Antonín Mrkvica</p>
-        </div>
-
-
-    </div>
-    <div class="footer-copyright">
-        <div class="container">
-            © 2018 Copyright
-        </div>
-    </div>
-</footer>
-
-</body>
-</html>
+{% include "footer.html" %}
