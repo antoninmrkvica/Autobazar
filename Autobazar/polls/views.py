@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import User, Car
+import datetime
 
 
 # Create your views here.
@@ -12,6 +13,7 @@ def logged(req):
 
 
 def index(request):
+    print(Car.objects.all().values())
     return render(request, "./index.html", {"logged": logged(request)})
 
 
@@ -59,22 +61,33 @@ def buy(request):
 
 
 def sell(request):
+    parameters = [["znacka", "Značka"], ["model", "Model"],
+                  ["motorizace", "Motorizace"], ["vykon", "Výkon [kw]"], ["tachometr", "Tachometr"],
+                  ["cena", "Cena"], ["datum_vyroby", "Datum výroby"], ["fuel_type", "Typ paliva"]]
+
     if request.method == "POST":
+        spec_params = []
+        for item in parameters:
+            spec_param = request.POST.get(item[0])
+            if not spec_param:
+                spec_param = "null"
+            spec_params.append(spec_param)
+        perform = spec_params[3]
+        if perform != "null":
+            perform = str(float(perform) * 1.34102209)
+        new_car = Car(mark=spec_params[0], model=spec_params[1], motorization=spec_params[2],
+                      performance_kw=spec_params[3], performance_hp=perform,
+                      killometres=spec_params[4], price=spec_params[5],
+                      manufacture_date=spec_params[6],
+                      owner=User.objects.filter(id=request.session.get('user_id'))[0],
+                      add_date=datetime.datetime.now(), fuel_type=spec_params[7], description=request.POST.get('popis'),
+                      repair=request.POST.get("opravy"), defects=request.POST.get("poskozeni"))
+        new_car.save()
         return redirect("index")
     return render(request, "./sell.html",
                   {"logged": logged(request),
-                   "car_param": [["znacka", "Značka"], ["model", "Model"],
-                                 ["motorizace", "Motorizace"], ["tachometr", "Tachometr"],
-                                 ["cena", "Cena"], ["datum_vyroby", "Datum výroby"],
-                                 ["vyhrivana_sedadla", "Vyhřívaná sedadla"],
-                                 ["airbag", "Airbag"],
-                                 ["mlhovky", "Mlhovky"],
-                                 ["denni_sviceni", "Denní svícení"],
-                                 ["rezervni_kolo", "Rezervní kolo"],
-                                 ["vyhrivane_celni_sklo", "Vyhřívané čelní sklo"],
-                                 ["vyhrivana_zrcatka", "Vyhřívaná zrcátka"],
-                                 ["delena_zadni_sedadla", "Dělená zadní sedadla"],
-                                 ["klimatizace", "Klimatizace"]]})
+                   "car_param": parameters})
+
 
 def search(request):
     return render(request, "./search.html", {"logged": logged(request)})

@@ -12,20 +12,21 @@ class User(models.Model):
 
 
 class Car(models.Model):
-    name = models.CharField(max_length=50)
+    mark = models.CharField(max_length=50)
+    model = models.CharField(max_length=50)
     images_paths = models.CharField(max_length=50, default=json.dumps([]))
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     manufacture_date = models.CharField(max_length=50)
     killometres = models.CharField(max_length=50)
-    owner_number = models.CharField(max_length=50)
     price = models.CharField(max_length=50)
     motorization = models.CharField(max_length=50)
     performance_kw = models.CharField(max_length=50)
     performance_hp = models.CharField(max_length=50)
-    add_date = models.CharField(max_length=50)
-    fuel = models.CharField(max_length=50)
+    add_date = models.DateField(max_length=50)
+    fuel_type = models.CharField(max_length=50)
     repair = models.CharField(max_length=500)
     defects = models.CharField(max_length=500)
+    description = models.CharField(max_length=500)
 
 
 
