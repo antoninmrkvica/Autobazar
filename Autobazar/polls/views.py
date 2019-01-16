@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import User, Car
 import datetime
+from django.core.files.storage import FileSystemStorage
 
 
 # Create your views here.
@@ -83,6 +84,15 @@ def sell(request):
                       add_date=datetime.datetime.now(), fuel_type=spec_params[7], description=request.POST.get('popis'),
                       repair=request.POST.get("opravy"), defects=request.POST.get("poskozeni"))
         new_car.save()
+        images = new_car.get_images()
+        imgs = request.FILES.getlist('files')
+        print(imgs)
+        for img in imgs:
+            print(img)
+            images.append(img.name)
+            fs = FileSystemStorage(location="./polls/media/"+str(new_car.id))
+            fs.save(img.name,img)
+        new_car.set_image(images)
         return redirect("index")
     return render(request, "./sell.html",
                   {"logged": logged(request),
