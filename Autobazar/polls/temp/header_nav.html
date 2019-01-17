@@ -14,18 +14,22 @@
 
 <nav class="top-nav">
     <div class="nav">
-    <ul id="slide-out" class="sidenav sidenav-fixed indigo accent-3">
-        <h5 class="center-align">Auta</h5>
-        <ul class="collapsible">
-            <li>
-                <div class="collapsible-header">Auto1</div>
-                <div class="collapsible-body indigo accent-3"><span class="pad10">model1</span></div>
-                <div class="collapsible-body indigo accent-3"><span class="pad10">model2</span></div>
-            </li>
+        <ul id="slide-out" class="sidenav sidenav-fixed indigo accent-3">
+            <h5 class="center-align">Auta</h5>
+            <ul class="collapsible">
+                {% for cars_mark in car_list %}
+                <li>
+                    <div class="collapsible-header">{{cars_mark}}</div>
+                    {% for carmodel in cars_mark %}
+                    <div class="collapsible-body indigo accent-3"><a href="/viewmodels/{{car.model}}" class="pad10">{{carmodel.model}}</a></div>
+                    {% endfor %}
+                </li>
+                {% endfor %}
+            </ul>
         </ul>
-    </ul>
-    <a href="#" data-target="slide-out" data-activates="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-</div>
+        <a href="#" data-target="slide-out" data-activates="mobile-demo" class="sidenav-trigger"><i
+                class="material-icons">menu</i></a>
+    </div>
     <div class="nav-wrapper indigo accent-3">
         <ul class="left hide-on-med-and-down">
             <li><a href="/" id="logo">Autobazar</a></li>

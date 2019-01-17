@@ -15,7 +15,14 @@ def logged(req):
 
 def index(request):
     #print(Car.objects.all().values())
-    return render(request, "./index.html", {"logged": logged(request), "cars":Car.objects.all()})
+    cars = Car.objects.all()
+    # list for sidenav
+    car_list = set()
+
+    for car in cars:
+        car_list.add(car.mark.strip().upper())
+    print(car_list)
+    return render(request, "./index.html", {"logged": logged(request), "cars":Car.objects.all(), "car_list":car_list})
 
 
 def login(request):
