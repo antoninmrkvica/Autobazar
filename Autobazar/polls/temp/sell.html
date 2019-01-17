@@ -1,6 +1,6 @@
 {% include "header_nav.html" %}
 <main>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
             <div class="row col offset-s3">
@@ -28,14 +28,14 @@
                 <div class="file-field input-field col s11">
                     <div class="btn indigo accent-3">
                         <span>Obrazky</span>
-                        <input type="file" multiple>
+                        <input type="file" multiple name="files">
                     </div>
                     <div class="file-path-wrapper">
                         <input class="file-path validate" type="text">
                     </div>
                 </div>
                 <div class="col s3">
-                    <button class="btn waves-effect waves-light indigo accent-3" type="submit" name="action">Submit
+                    <button class="btn waves-effect waves-light indigo accent-3" type="submit" name="action">Odeslat
                         <i class="material-icons right">send</i>
                     </button>
                 </div>
