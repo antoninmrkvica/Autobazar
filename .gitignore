@@ -84,6 +84,7 @@ target/
 *.pyc
 __pycache__/
 migrations/
+migrations/__pycache__
 local_settings.py
 
 .env
