@@ -2,28 +2,28 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-  }
-
-main {
-flex: 1 0 auto;
 }
 
-#logo{
+main {
+    flex: 1 0 auto;
+}
+
+#logo {
     padding-right: 50px;
     font-size: 200%;
 }
-nav{
+
+nav {
     padding-left: 300px;
     background-color: #3d5afe;
 
 }
 
-.pad10{
+.pad10 {
 
-    padding-left:30px;
+    padding-left: 30px;
 }
 
 .nav {
     color: white;
-
 }
