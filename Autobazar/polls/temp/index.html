@@ -6,7 +6,7 @@
             {% for car in cars %}
             <div class="col s4">
                 <div class="card medium">
-                    <a href="/view/{{car.id}}">
+                    <a href="/view?car_id={{car.id}}">
                         <div class="card-image">
                             <img src="/static/{{car.images_paths|list_first}}">
                         </div>

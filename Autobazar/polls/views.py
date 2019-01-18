@@ -126,5 +126,11 @@ def viewmodels(request):
         if carf.mark.strip().upper() == mark and carf.model.strip().upper() == model:
             filtered_cars.append(carf)
 
-    return render(request, "./filtered_cars.html",
+    return render(request, "./index.html",
                   {"logged": logged(request), "cars": filtered_cars, "car_list": sorted_dict})
+
+def view(request):
+    car_id = request.GET.get('car_id')
+    print(car_id)
+    return render(request, "./view.html",
+                  {"logged": logged(request), "car_list": sorted_dict, "car":Car.objects.filter(id=car_id)})
