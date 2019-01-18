@@ -3,6 +3,7 @@ import json
 
 register = template.Library()
 
+
 @register.filter(name='list_first')
 def image_data(object):
     file_list = json.loads(object)
@@ -12,3 +13,10 @@ def image_data(object):
         file_path = "empty list"
     #print(file_path)
     return file_path
+
+
+@register.filter(name='true_list')
+def true_list(list):
+    print(list)
+    return list
+
