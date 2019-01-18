@@ -17,11 +17,11 @@
         <ul id="slide-out" class="sidenav sidenav-fixed indigo accent-3">
             <h5 class="center-align">Auta</h5>
             <ul class="collapsible">
-                {% for cars_mark in car_list %}
+                {% for cars_mark, values in car_list.items %}
                 <li>
                     <div class="collapsible-header">{{cars_mark}}</div>
-                    {% for carmodel in cars_mark %}
-                    <div class="collapsible-body indigo accent-3"><a href="/viewmodels/{{car.model}}" class="pad10">{{carmodel.model}}</a></div>
+                    {% for carmodel in values %}
+                    <div class="collapsible-body indigo accent-3"><a href="/viewmodels/{{carmodel}}" class="pad10">{{carmodel}}</a></div>
                     {% endfor %}
                 </li>
                 {% endfor %}
