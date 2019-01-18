@@ -21,7 +21,7 @@
                 <li>
                     <div class="collapsible-header">{{cars_mark}}</div>
                     {% for carmodel in values %}
-                    <div class="collapsible-body indigo accent-3"><a href="/viewmodels/{{carmodel}}" class="pad10">{{carmodel}}</a></div>
+                    <div class="collapsible-body indigo accent-3"><a href="/viewmodels?model={{carmodel}}&mark={{cars_mark}}" class="pad10">{{carmodel}}</a></div>
                     {% endfor %}
                 </li>
                 {% endfor %}

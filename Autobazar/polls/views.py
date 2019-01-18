@@ -23,17 +23,14 @@ def index(request):
         car_model_list[car.mark.strip().upper()] = set()
     for car in cars:
         car_model_list[car.mark.strip().upper()].add(car.model.strip().upper())
+
     #sort at the end
-    print(car_model_list)
-    car_list = []
-    for car in cars:
-        if not car.mark.strip().upper() in car_list:
-            car_list.append(car.mark.strip().upper())
-    for car in cars:
-        if not car.mark.strip().upper() in car_list:
-            car_list.append(car.mark.strip().upper())
-    print(car_list)
-    return render(request, "./index.html", {"logged": logged(request), "cars":Car.objects.all(), "car_list":car_model_list})
+    sorted_dict = {}
+    for item in sorted(car_model_list):
+        sorted_dict.update({item:car_model_list[item]})
+
+
+    return render(request, "./index.html", {"logged": logged(request), "cars":Car.objects.all(), "car_list":sorted_dict})
 
 
 def login(request):
