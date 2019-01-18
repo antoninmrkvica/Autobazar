@@ -3,6 +3,20 @@ from .models import User, Car
 import datetime
 from django.core.files.storage import FileSystemStorage
 
+cars = Car.objects.all()
+# list for sidenav
+car_model_list = {}
+
+for car in cars:
+    car_model_list[car.mark.strip().upper()] = set()
+for car in cars:
+    car_model_list[car.mark.strip().upper()].add(car.model.strip().upper())
+
+# sort at the end
+sorted_dict = {}
+for item in sorted(car_model_list):
+    sorted_dict.update({item: car_model_list[item]})
+
 
 # Create your views here.
 
@@ -14,23 +28,10 @@ def logged(req):
 
 
 def index(request):
-    #print(Car.objects.all().values())
-    cars = Car.objects.all()
-    # list for sidenav
-    car_model_list = {}
+    # print(Car.objects.all().values())
 
-    for car in cars:
-        car_model_list[car.mark.strip().upper()] = set()
-    for car in cars:
-        car_model_list[car.mark.strip().upper()].add(car.model.strip().upper())
-
-    #sort at the end
-    sorted_dict = {}
-    for item in sorted(car_model_list):
-        sorted_dict.update({item:car_model_list[item]})
-
-
-    return render(request, "./index.html", {"logged": logged(request), "cars":Car.objects.all(), "car_list":sorted_dict})
+    return render(request, "./index.html",
+                  {"logged": logged(request), "cars": Car.objects.all(), "car_list": sorted_dict})
 
 
 def login(request):
@@ -101,9 +102,9 @@ def sell(request):
         new_car.save()
         imgs = request.FILES.getlist('files')
         for img in imgs:
-            new_car.set_image("./media/"+str(new_car.id)+"/"+img.name)
-            fs = FileSystemStorage(location="./polls/media/"+str(new_car.id))
-            fs.save(img.name,img)
+            new_car.set_image("./media/" + str(new_car.id) + "/" + img.name)
+            fs = FileSystemStorage(location="./polls/media/" + str(new_car.id))
+            fs.save(img.name, img)
         new_car.save()
         return redirect("index")
     return render(request, "./sell.html",
@@ -113,3 +114,17 @@ def sell(request):
 
 def search(request):
     return render(request, "./search.html", {"logged": logged(request)})
+
+
+def viewmodels(request):
+    mark = request.GET.get("mark")
+    model = request.GET.get("model")
+
+    cars_for_filter = Car.objects.all()
+    filtered_cars = []
+    for carf in cars_for_filter:
+        if carf.mark.strip().upper() == mark and carf.model.strip().upper() == model:
+            filtered_cars.append(carf)
+
+    return render(request, "./filtered_cars.html",
+                  {"logged": logged(request), "cars": filtered_cars, "car_list": sorted_dict})
