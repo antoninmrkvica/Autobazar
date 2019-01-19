@@ -4,9 +4,5 @@
 $(document).ready(function () {
     $('.sidenav').sidenav();
     $('.collapsible').collapsible();
-    $('.carousel-slider').carousel({
-        fullWidth: true,
-        indicators: true,
-    });
-
+    $('.slider').slider();
 });

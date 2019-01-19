@@ -1,15 +1,22 @@
 {% include "header_nav.html" %}
 {% load poll_extras %}
+<br>
 <main>
     <div class="row">
         <div class="col s9 offset-s3">
-            <div class="carousel carousel-slider">
-                {% for image in car.get_images %}
-                    <a class="carousel-item"><img src="/static/{{image}}"></a>
-                {% endfor %}
+            <div class="slider col s9">
+                <ul class="slides">
+                    {% for image in car.get_images %}
+                    <li>
+                        <img src="/static/{{image}}">
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
+        </div>
+        <div class="row">
+            <div class="col s9 offset-s3"
             <h5>{{car.mark}} {{car.model}}</h5>
-
             <p>Značka: {{car.mark}}</p>
             <p>Model: {{car.model}}</p>
             <p>Motorizace: {{car.motorization}}</p>
@@ -22,8 +29,9 @@
             <p>Popis: {{car.description}}</p>
             <p>Závady: {{car.defects}}</p>
             <p>Opravy: {{car.repair}}</p>
-
         </div>
+    </div>
+
     </div>
 </main>
 {% include "footer.html" %}
