@@ -35,7 +35,15 @@
                         <input class="file-path validate" type="text">
                     </div>
                 </div>
-                <div class="col s12" id="images">
+                <div class="col s12">
+                    <p>Právě nahrané obrázky: </p>
+                    <div class="col s12" id="images">
+                    </div>
+                </div>
+                <div class="col s12">
+                    <p>Dříve nahrané obrázky: </p>
+                    <div class="col s12" id="images_old">
+                    </div>
                 </div>
                 <div class="col s3">
                     <button class="btn waves-effect waves-light indigo accent-3" type="submit" name="action">Odeslat
@@ -65,14 +73,22 @@
     $('#datum_vyroby').text("{{ car.manufacture_date }}");
     $('#fuel_type').text("{{ car.fuel_type }}");
 
+    car_images = {{car.get_images|safe}};
+    $.each(car_images, function (index, image) {
+            console.log(image);
+            $('#images_old')
+                .append($('<img/>').attr('src', window.location.origin+'/static/'+image).attr('width', '300'));
+
+    })
 
     function readURL(input) {
         reader = new FileReader();
 
         reader.onload = function (e) {
             //create img in div(id="images") with src of uploaded image
+            //.append($('<div id="img'+i+'"></div>'
             $('#images')
-                    .append($('<img />').attr('src', e.target.result).attr('width', '300'));
+                .append($('<img />').attr('src', e.target.result).attr('width', '300'));
         };
         reader.readAsDataURL(input);
     }
