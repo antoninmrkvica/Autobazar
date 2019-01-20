@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponseRedirect
 from .models import User, Car
 import datetime
 from django.core.files.storage import FileSystemStorage
@@ -16,6 +16,10 @@ for car in cars:
 sorted_dict = {}
 for item in sorted(car_model_list):
     sorted_dict.update({item: car_model_list[item]})
+
+parameters = [["znacka", "Značka"], ["model", "Model"],
+              ["motorizace", "Motorizace"], ["vykon", "Výkon [kw]"], ["tachometr", "Tachometr"],
+              ["cena", "Cena"], ["datum_vyroby", "Datum výroby"], ["fuel_type", "Typ paliva"]]
 
 
 # Create your views here.
@@ -78,10 +82,6 @@ def buy(request):
 
 
 def sell(request):
-    parameters = [["znacka", "Značka"], ["model", "Model"],
-                  ["motorizace", "Motorizace"], ["vykon", "Výkon [kw]"], ["tachometr", "Tachometr"],
-                  ["cena", "Cena"], ["datum_vyroby", "Datum výroby"], ["fuel_type", "Typ paliva"]]
-
     if request.method == "POST":
         spec_params = []
         for item in parameters:
@@ -136,3 +136,13 @@ def view(request):
     return render(request, "./view.html",
                   {"logged": logged(request), "car_list": sorted_dict, "car": Car.objects.filter(id=car_id)[0],
                    "user": user[0]})
+
+
+def edit_car(request):
+    if request.method == "POST":
+        car_id = request.POST.get('car_id')
+        return HttpResponseRedirect("view?car_id="+car_id)
+    car_id = request.GET.get('car_id')
+    return render(request, "./edit_car.html",
+                  {"logged": logged(request), "car_list": sorted_dict, "car": Car.objects.filter(id=car_id)[0],
+                   "car_param": parameters})

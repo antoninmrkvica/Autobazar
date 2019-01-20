@@ -1,0 +1,66 @@
+{% include "header_nav.html" %}
+<main>
+    <form method="post" enctype="multipart/form-data" action="/edit_car">
+        {% csrf_token %}
+        <div class="row">
+            <div class="row col offset-s3">
+                <input hidden name="car_id" value="{{car.id}}">
+                {% for item, name in car_param %}
+                <div class="input-field col">
+                    <textarea id="{{ item }}" class="materialize-textarea" name="{{ item }}"></textarea>
+                    <label for="{{ item }}">{{ name }}</label>
+                </div>
+                {% endfor %}
+
+                <div class="input-field col s11">
+                    <textarea id="popis" class="materialize-textarea" name="popis"></textarea>
+                    <label for="popis">Popis</label>
+                </div>
+                <div class="input-field col s11">
+                    <textarea id="poskozeni" class="materialize-textarea" name="poskozeni"></textarea>
+                    <label for="poskozeni">Poškození</label>
+                </div>
+
+                <div class="input-field col s11">
+                    <textarea id="opravy" class="materialize-textarea" name="opravy"></textarea>
+                    <label for="opravy">Opravy</label>
+                </div>
+
+                <div class="file-field input-field col s11">
+                    <div class="btn indigo accent-3">
+                        <span>Obrazky</span>
+                        <input type="file" multiple name="files">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+                <div class="col s3">
+                    <button class="btn waves-effect waves-light indigo accent-3" type="submit" name="action">Odeslat
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</main>
+
+{% include "footer.html" %}
+
+<script type="application/javascript">
+    //fill inputs
+    //let car = "{{ car.mark }}";
+    $('#popis').text("{{ car.description }}");
+    $('#poskozeni').text("{{ car.defects }}");
+    $('#opravy').text("{{ car.repair }}");
+    $('#znacka').text("{{ car.mark }}");
+    $('#model').text("{{ car.model }}");
+    $('#motorizace').text("{{ car.motorization }}");
+    $('#vykon').text("{{ car.performance_kw }}");
+    $('#tachometr').text("{{ car.killometres }}");
+    $('#cena').text("{{ car.price }}");
+    $('#datum_vyroby').text("{{ car.manufacture_date }}");
+    $('#fuel_type').text("{{ car.fuel_type }}");
+
+</script>
