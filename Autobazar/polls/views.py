@@ -1,21 +1,29 @@
-from django.shortcuts import render, redirect,HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from .models import User, Car
 import datetime
 from django.core.files.storage import FileSystemStorage
 
 cars = Car.objects.all()
-# list for sidenav
-car_model_list = {}
 
-for car in cars:
-    car_model_list[car.mark.strip().upper()] = set()
-for car in cars:
-    car_model_list[car.mark.strip().upper()].add(car.model.strip().upper())
+def sidenav_gener():
+    # list for sidenav
 
-# sort at the end
+    car_model_list = {}
+    cars = Car.objects.all()
+    for car in cars:
+        car_model_list[car.mark.strip().upper()] = set()
+    for car in cars:
+        car_model_list[car.mark.strip().upper()].add(car.model.strip().upper())
+
+    # sort at the end
+
+    for item in sorted(car_model_list):
+        sorted_dict.update({item: car_model_list[item]})
+
+
+#generate sidenav_gener() after start and every time while new car is added to be sold - after remove need to do it !!
 sorted_dict = {}
-for item in sorted(car_model_list):
-    sorted_dict.update({item: car_model_list[item]})
+sidenav_gener()
 
 parameters = [["znacka", "Značka"], ["model", "Model"],
               ["motorizace", "Motorizace"], ["vykon", "Výkon [kw]"], ["tachometr", "Tachometr"],
@@ -32,6 +40,7 @@ def logged(req):
 
 
 def index(request):
+
     # print(Car.objects.all().values())
 
     return render(request, "./index.html",
@@ -78,7 +87,7 @@ def logout(request):
 
 
 def buy(request):
-    return render(request, "./buy.html", {"logged": logged(request)})
+    return render(request, "./buy.html", {"car_list": sorted_dict, "logged": logged(request)})
 
 
 def sell(request):
@@ -106,9 +115,10 @@ def sell(request):
             fs = FileSystemStorage(location="./polls/media/" + str(new_car.id))
             fs.save(img.name, img)
         new_car.save()
+        sidenav_gener()
         return redirect("index")
     return render(request, "./sell.html",
-                  {"logged": logged(request),
+                  {"logged": logged(request), "car_list": sorted_dict,
                    "car_param": parameters})
 
 
@@ -152,13 +162,13 @@ def edit_car(request):
         if perform != "null":
             perform = str(round(float(perform) * 1.34102209))
         car.update(mark=spec_params[0], model=spec_params[1], motorization=spec_params[2],
-                      performance_kw=spec_params[3], performance_hp=perform,
-                      killometres=spec_params[4], price=spec_params[5],
-                      manufacture_date=spec_params[6],
-                      owner=User.objects.filter(id=request.session.get('user_id'))[0],
-                      add_date=datetime.datetime.now(), fuel_type=spec_params[7], description=request.POST.get('popis'),
-                      repair=request.POST.get("opravy"), defects=request.POST.get("poskozeni"))
-        return HttpResponseRedirect("view?car_id="+car_id)
+                   performance_kw=spec_params[3], performance_hp=perform,
+                   killometres=spec_params[4], price=spec_params[5],
+                   manufacture_date=spec_params[6],
+                   owner=User.objects.filter(id=request.session.get('user_id'))[0],
+                   add_date=datetime.datetime.now(), fuel_type=spec_params[7], description=request.POST.get('popis'),
+                   repair=request.POST.get("opravy"), defects=request.POST.get("poskozeni"))
+        return HttpResponseRedirect("view?car_id=" + car_id)
     car_id = request.GET.get('car_id')
     return render(request, "./edit_car.html",
                   {"logged": logged(request), "car_list": sorted_dict, "car": Car.objects.filter(id=car_id)[0],
