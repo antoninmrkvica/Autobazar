@@ -29,11 +29,13 @@
                 <div class="file-field input-field col s11">
                     <div class="btn indigo accent-3">
                         <span>Obrazky</span>
-                        <input type="file" multiple name="files">
+                        <input type="file" id="img" multiple name="files">
                     </div>
                     <div class="file-path-wrapper">
                         <input class="file-path validate" type="text">
                     </div>
+                </div>
+                <div class="col s12" id="images">
                 </div>
                 <div class="col s3">
                     <button class="btn waves-effect waves-light indigo accent-3" type="submit" name="action">Odeslat
@@ -63,4 +65,26 @@
     $('#datum_vyroby').text("{{ car.manufacture_date }}");
     $('#fuel_type').text("{{ car.fuel_type }}");
 
+
+    function readURL(input) {
+        reader = new FileReader();
+
+        reader.onload = function (e) {
+            //create img in div(id="images") with src of uploaded image
+            $('#images')
+                    .append($('<img />').attr('src', e.target.result).attr('width', '300'));
+        };
+        reader.readAsDataURL(input);
+    }
+
+    $("#img").change(function () {
+        finalFiles = {};
+        $('#images').empty();
+        i = 0;
+        $.each(this.files, function (index, file) {
+            finalFiles[index] = file.name;
+            readURL(file);
+        });
+
+    });
 </script>

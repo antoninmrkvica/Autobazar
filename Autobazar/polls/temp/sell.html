@@ -35,7 +35,6 @@
                     </div>
                 </div>
                 <div class="col s12" id="images">
-                    <img width="300" id="preview" src=""/>
                 </div>
                 <div class="col s3">
                     <button class="btn waves-effect waves-light indigo accent-3" type="submit" name="action">Odeslat
@@ -49,18 +48,24 @@
 </main>
 {% include "footer.html" %}
 <script type="application/javascript">
+
     function readURL(input) {
-            reader = new FileReader();
-            i = 0;
-            reader.onload = function (e) {
-                $('#images').append($('<img/>').attr('src', e.target.result).attr('width', '300'));
-            };
-            reader.readAsDataURL(input);
+        reader = new FileReader();
+
+        reader.onload = function (e) {
+            //create img in div(id="images") with src of uploaded image
+            $('#images')
+                .append($('<img />').attr('src', e.target.result).attr('width', '300'));
+        };
+        reader.readAsDataURL(input);
     }
 
     $("#img").change(function () {
+        finalFiles = {};
         $('#images').empty();
+        i = 0;
         $.each(this.files, function (index, file) {
+            finalFiles[index] = file.name;
             readURL(file);
         });
 
