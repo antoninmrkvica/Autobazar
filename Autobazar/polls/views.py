@@ -91,7 +91,7 @@ def sell(request):
             spec_params.append(spec_param)
         perform = spec_params[3]
         if perform != "null":
-            perform = str(float(perform) * 1.34102209)
+            perform = str(round(float(perform) * 1.34102209))
         new_car = Car(mark=spec_params[0], model=spec_params[1], motorization=spec_params[2],
                       performance_kw=spec_params[3], performance_hp=perform,
                       killometres=spec_params[4], price=spec_params[5],
@@ -141,6 +141,23 @@ def view(request):
 def edit_car(request):
     if request.method == "POST":
         car_id = request.POST.get('car_id')
+        car = Car.objects.filter(id=car_id)
+        spec_params = []
+        for item in parameters:
+            spec_param = request.POST.get(item[0])
+            if not spec_param:
+                spec_param = "null"
+            spec_params.append(spec_param)
+        perform = spec_params[3]
+        if perform != "null":
+            perform = str(round(float(perform) * 1.34102209))
+        car.update(mark=spec_params[0], model=spec_params[1], motorization=spec_params[2],
+                      performance_kw=spec_params[3], performance_hp=perform,
+                      killometres=spec_params[4], price=spec_params[5],
+                      manufacture_date=spec_params[6],
+                      owner=User.objects.filter(id=request.session.get('user_id'))[0],
+                      add_date=datetime.datetime.now(), fuel_type=spec_params[7], description=request.POST.get('popis'),
+                      repair=request.POST.get("opravy"), defects=request.POST.get("poskozeni"))
         return HttpResponseRedirect("view?car_id="+car_id)
     car_id = request.GET.get('car_id')
     return render(request, "./edit_car.html",
