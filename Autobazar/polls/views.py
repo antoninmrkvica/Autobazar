@@ -7,7 +7,7 @@ cars = Car.objects.all()
 
 def sidenav_gener():
     # list for sidenav
-
+    sorted_dict.clear()
     car_model_list = {}
     cars = Car.objects.all()
     for car in cars:
