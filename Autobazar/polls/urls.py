@@ -13,4 +13,5 @@ urlpatterns = [
     path('viewmodels', views.viewmodels, name='viewmodels'),
     path('view', views.view, name='view'),
     path('edit_car', views.edit_car, name='edit_car'),
+    path('remove_image', views.remove_image, name='remove_image'),
 ]

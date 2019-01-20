@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
 from .models import User, Car
 import datetime
 from django.core.files.storage import FileSystemStorage
@@ -173,3 +173,11 @@ def edit_car(request):
     return render(request, "./edit_car.html",
                   {"logged": logged(request), "car_list": sorted_dict, "car": Car.objects.filter(id=car_id)[0],
                    "car_param": parameters})
+
+def remove_image(request):
+    car_id = request.GET.get('car_id')
+    image_path = request.GET.get('image_path')
+    car = Car.objects.filter(id=car_id)[0]
+    car.remove_image(image_path)
+    car.save()
+    return HttpResponse('remove done!!')

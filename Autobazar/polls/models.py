@@ -37,3 +37,10 @@ class Car(models.Model):
 
     def get_images(self):
         return json.loads(self.images_paths)
+
+    def remove_image(self, image_path):
+        all_images = json.loads(self.images_paths)
+        index = all_images.index(image_path)
+        del all_images[index]
+        self.images_paths = json.dumps(all_images)
+

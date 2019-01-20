@@ -73,20 +73,34 @@
     $('#datum_vyroby').text("{{ car.manufacture_date }}");
     $('#fuel_type').text("{{ car.fuel_type }}");
 
-    car_images = {{car.get_images|safe}};
+
+    //show saved images {{car.get_images | safe}};
+    car_images = {{car.get_images | safe}};
     $.each(car_images, function (index, image) {
-            console.log(image);
-            $('#images_old')
-                .append($('<img/>').attr('src', window.location.origin+'/static/'+image).attr('width', '300'));
+        $('#images_old')
+            .append($('<div class="col s4" id="img'+index+'"></div>')
+                .append($('<button type="button" class="btn red" onclick="remove('+"'"+image+"'"+')">Remove</button>'))
+                .append($('<img/>').attr('src', window.location.origin + '/static/' + image).attr('width', '300')));
 
     })
+    
+    function remove(image) {
+        console.log(image);
+        car_id = '{{car.id}}';
+        $.ajax({
+            url:window.location.origin+'/remove_image?image_path='+image+'&car_id='+car_id,
+            type:"GET",
+            success:function () {
+                location.reload();
+            }
+        });
+    }
 
     function readURL(input) {
         reader = new FileReader();
 
         reader.onload = function (e) {
             //create img in div(id="images") with src of uploaded image
-            //.append($('<div id="img'+i+'"></div>'
             $('#images')
                 .append($('<img />').attr('src', e.target.result).attr('width', '300'));
         };
