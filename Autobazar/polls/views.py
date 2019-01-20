@@ -189,3 +189,12 @@ def remove_image(request):
     car.remove_image(image_path)
     car.save()
     return HttpResponse('remove done!!')
+
+def delete_car(request):
+    id = request.GET.get('car_id')
+    car = Car.objects.filter(id=id)
+    current_user = User.objects.filter(id=request.session.get('user_id'))[0]
+    if current_user == Car.owner or current_user.is_admin:
+        car.delete()
+    sidenav_gener()
+    return redirect("index")
