@@ -168,6 +168,14 @@ def edit_car(request):
                    owner=User.objects.filter(id=request.session.get('user_id'))[0],
                    add_date=datetime.datetime.now(), fuel_type=spec_params[7], description=request.POST.get('popis'),
                    repair=request.POST.get("opravy"), defects=request.POST.get("poskozeni"))
+        imgs = request.FILES.getlist('files')
+        car=car[0]
+        for img in imgs:
+            car.set_image("./media/" + str(car.id) + "/" + img.name)
+            fs = FileSystemStorage(location="./polls/media/" + str(car.id))
+            fs.save(img.name, img)
+        car.save()
+        sidenav_gener()
         return HttpResponseRedirect("view?car_id=" + car_id)
     car_id = request.GET.get('car_id')
     return render(request, "./edit_car.html",
