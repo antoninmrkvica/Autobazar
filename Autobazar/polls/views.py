@@ -129,7 +129,10 @@ def viewmodels(request):
     return render(request, "./index.html",
                   {"logged": logged(request), "cars": filtered_cars, "car_list": sorted_dict})
 
+
 def view(request):
     car_id = request.GET.get('car_id')
+    user = User.objects.filter(id=request.session.get('user_id'))
     return render(request, "./view.html",
-                  {"logged": logged(request), "car_list": sorted_dict, "car":Car.objects.filter(id=car_id)[0]})
+                  {"logged": logged(request), "car_list": sorted_dict, "car": Car.objects.filter(id=car_id)[0],
+                   "user": user[0]})
