@@ -123,7 +123,7 @@ def sell(request):
 
 
 def search(request):
-    return render(request, "./search.html", {"logged": logged(request)})
+    return render(request, "./search.html", {"logged": logged(request), "car_list": sorted_dict})
 
 
 def viewmodels(request):
