@@ -86,10 +86,6 @@ def logout(request):
     return redirect("index")
 
 
-def buy(request):
-    return render(request, "./buy.html", {"car_list": sorted_dict, "logged": logged(request)})
-
-
 def sell(request):
     if request.method == "POST":
         spec_params = []
