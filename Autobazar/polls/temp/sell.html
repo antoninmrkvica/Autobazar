@@ -1,5 +1,6 @@
 {% include "header_nav.html" %}
 <main>
+    {% if logged %}
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
@@ -45,6 +46,18 @@
             </div>
         </div>
     </form>
+    {% else %}
+    <div class="row">
+        <div class="col offset-s3">
+            <br>
+            <h5>
+                <a href="login">
+                    Pokud chceš prodat auto musís se příhlásit.
+                </a>
+            </h5>
+        </div>
+    </div>
+    {% endif %}
 </main>
 {% include "footer.html" %}
 <script type="application/javascript">
@@ -55,7 +68,7 @@
         reader.onload = function (e) {
             //create img in div(id="images") with src of uploaded image
             $('#images')
-                .append($('<img />').attr('src', e.target.result).attr('width', '300'));
+                    .append($('<img />').attr('src', e.target.result).attr('width', '300'));
         };
         reader.readAsDataURL(input);
     }
