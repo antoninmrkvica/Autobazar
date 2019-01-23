@@ -138,10 +138,10 @@ def viewmodels(request):
 
 def view(request):
     car_id = request.GET.get('car_id')
-    user = User.objects.filter(id=request.session.get('user_id'))
+    user = User.objects.filter(id=request.session.get('user_id')).last()
     return render(request, "./view.html",
                   {"logged": logged(request), "car_list": sorted_dict, "car": Car.objects.filter(id=car_id)[0],
-                   "user": user[0]})
+                   "user": user})
 
 
 def edit_car(request):
