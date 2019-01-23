@@ -57,7 +57,7 @@ def login(request):
         if searched_user:
             request.session['user_id'] = searched_user[0].id
         else:
-            return render(request, "./login.html", {"car_list": sorted_dict, "msg": "User isn't registered or wrong password."})
+            return render(request, "./login.html", {"car_list": sorted_dict, "msg": "Uživatelské jméno neexistuje nebo bylo zadáno špatné heslo."})
         return redirect("index")
     else:
         return render(request, "./login.html", {"car_list": sorted_dict})
@@ -68,12 +68,16 @@ def reg(request):
         username = request.POST.get('username')
         passwd = request.POST.get('passwd')
         passwdconfirm = request.POST.get('passwdconfirm')
-        if username == "" or passwd == "" or passwdconfirm == "":
-            return render(request, "./reg.html", {"msg": "Something is missing."})
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        if username == "" or passwd == "" or passwdconfirm == "" or phone == "" or email == "":
+            return render(request, "./reg.html", {"msg": "Musíte vyplnit všechna pole."})
         elif passwd != passwdconfirm:
-            return render(request, "./reg.html", {"msg": "Passwords don't match."})
+            return render(request, "./reg.html", {"msg": "Hesla se musí shodovat."})
+        elif User.objects.filter(username=username):
+            return render(request, "./reg.html", {"msg": "Uživatelské jméno již existuje!!"})
         else:
-            new_user = User(username=username, password=passwd)
+            new_user = User(username=username, password=passwd, phone=phone, email=email)
             new_user.save()
             request.session['user_id'] = new_user.id
             return redirect("index")

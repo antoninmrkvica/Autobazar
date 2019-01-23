@@ -6,12 +6,12 @@
             <div class="row col offset-s4">
                 <div class="input-field col s4">
                     <input id="username" type="text" class="validate" name="username">
-                    <label class="active" for="username">Username</label>
+                    <label class="active" for="username">Uživatelské jméno</label>
                 </div>
 
                 <div class="input-field col s4">
                     <input id="passwd" type="password" class="validate" name="passwd">
-                    <label class="active" for="passwd">Password</label>
+                    <label class="active" for="passwd">Heslo</label>
                 </div>
                 <br>
 
@@ -23,10 +23,13 @@
 
             </div>
         </form>
+        {% if msg %}
         <div class="row col s5 offset-s3">
             <p style="color: red">{{ msg }}</p>
+            <a href="">Chci poslat heslo na email.</a>
 
         </div>
+        {% endif %}
     </div>
 </main>
 
