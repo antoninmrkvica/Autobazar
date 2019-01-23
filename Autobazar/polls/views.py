@@ -57,10 +57,10 @@ def login(request):
         if searched_user:
             request.session['user_id'] = searched_user[0].id
         else:
-            return render(request, "./login.html", {"msg": "User isn't registered or wrong password."})
+            return render(request, "./login.html", {"car_list": sorted_dict, "msg": "User isn't registered or wrong password."})
         return redirect("index")
     else:
-        return render(request, "./login.html")
+        return render(request, "./login.html", {"car_list": sorted_dict})
 
 
 def reg(request):
@@ -78,7 +78,7 @@ def reg(request):
             request.session['user_id'] = new_user.id
             return redirect("index")
     else:
-        return render(request, "./reg.html", {"msg": ""})
+        return render(request, "./reg.html", {"car_list": sorted_dict, "msg": ""})
 
 
 def logout(request):
