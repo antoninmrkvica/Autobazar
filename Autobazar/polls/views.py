@@ -22,7 +22,7 @@ def sidenav_gener():
         sorted_dict.update({item: car_model_list[item]})
 
 
-# generate sidenav_gener() after start and every time while new car is added to be sold - after remove need to do it !!
+# generate sidenav_gener() after start and every time while new car is added to be sold or exists car is removed
 sorted_dict = {}
 sidenav_gener()
 
@@ -56,11 +56,13 @@ def login(request):
         if searched_user:
             request.session['user_id'] = searched_user[0].id
         else:
-            return render(request, "./login.html", {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
-                                                    "msg": "Uživatelské jméno neexistuje nebo bylo zadáno špatné heslo."})
+            return render(request, "./login.html",
+                          {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
+                           "msg": "Uživatelské jméno neexistuje nebo bylo zadáno špatné heslo."})
         return redirect("index")
     else:
-        return render(request, "./login.html", {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
+        return render(request, "./login.html",
+                      {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
 
 
 def reg(request):
@@ -82,7 +84,8 @@ def reg(request):
             request.session['user_id'] = new_user.id
             return redirect("index")
     else:
-        return render(request, "./reg.html", {"user": current_user(request.session.get('user_id')),"car_list": sorted_dict, "msg": ""})
+        return render(request, "./reg.html",
+                      {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "msg": ""})
 
 
 def logout(request):
@@ -203,9 +206,25 @@ def delete_car(request):
     sidenav_gener()
     return redirect("index")
 
+
 def acc(request):
+    if request.method == "POST":
+        old_password = request.POST.get('oldpasswd')
+        new_pass = request.POST.get('passwd')
+        new_pass_conf = request.POST.get('passwdconfirm')
+        user_id = request.session.get('user_id')
+        user = User.objects.filter(id=user_id)
+        if user.last().password == old_password and new_pass == new_pass_conf:
+            user.update(password=new_pass)
+            user.last().save()
+        else:
+            return render(request, "./acc.html",
+                   {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
+                    "msg": "Špatné staré heslo nebo se nová hesla neshodují"})
+
     return render(request, "./acc.html",
                   {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
+
 
 def send_password(request):
     return render(request, "./send_password.html",
