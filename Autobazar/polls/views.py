@@ -236,9 +236,9 @@ def acc(request):
 def send_password(request):
     if request.method == "POST":
         email = request.POST.get('email')
-        print(email)
-        if email:
-            text = 'Here your password: ' + User.objects.filter(email=email).last().password
+        user = User.objects.filter(email=email)
+        if email and user:
+            text = 'Uživatelské jméno: '+user.last().username+'\n Heslo: ' + user.last().password
             send_mail(
                 'Autobazar password',
                 text,
