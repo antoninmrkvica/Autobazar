@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect, HttpRespons
 from .models import User, Car
 import datetime
 from django.core.files.storage import FileSystemStorage
+from django.core.mail import send_mail
 
 cars = Car.objects.all()
 
@@ -220,8 +221,8 @@ def change_password(request):
             return redirect('acc')
         else:
             return render(request, "./change_password.html",
-                   {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
-                    "msg": "Špatné staré heslo nebo se nová hesla neshodují"})
+                          {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
+                           "msg": "Špatné staré heslo nebo se nová hesla neshodují"})
 
     return render(request, "./change_password.html",
                   {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
@@ -231,7 +232,26 @@ def acc(request):
     return render(request, "./acc.html",
                   {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
 
+
 def send_password(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        print(email)
+        if email:
+            text = 'Here your password: ' + User.objects.filter(email=email).last().password
+            send_mail(
+                'Autobazar password',
+                text,
+                'autobazarmrkvica@gmail.com',
+                [email],
+                fail_silently=False,
+            )
+            return render(request, "./send_password.html",
+                          {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
+                           "msg": "successful"})
+        return render(request, "./send_password.html",
+                      {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
+                       "msg": "Failed"})
+
     return render(request, "./send_password.html",
                   {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
-
