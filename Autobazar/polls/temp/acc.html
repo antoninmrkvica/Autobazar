@@ -1,35 +1,33 @@
 {% include "header_nav.html" %}
 <main>
     <div class="row">
-        <form method="post">
-            {% csrf_token %}
-            <div class="row col s6 offset-s3">
-
-                <div class="input-field col s4s">
-                    <input id="oldpasswd" type="password" class="validate" name="oldpasswd">
-                    <label class="active" for="oldpasswd">Staré heslo</label>
-                </div>
-                <div class="input-field col s4">
-                    <input id="passwd" type="password" class="validate" name="passwd">
-                    <label class="active" for="passwd">Nové heslo</label>
-                </div>
-                <div class="input-field col s4">
-                    <input id="passwdconfirm" type="password" class="validate" name="passwdconfirm">
-                    <label class="active" for="passwdconfirm">Znovu nové heslo</label>
-                </div>
-                <div class="col s4">
-                    <button class="btn waves-effect waves-light indigo accent-3" type="submit" name="action">Odeslat
-                        <i class="material-icons right">send</i>
-                    </button>
-                </div>
-
-
-            </div>
-        </form>
-        <div class="row col s6 offset-s5">
-            <p style="color: red">{{ msg }}</p>
-
+        <div class="col offset-s3">
+            <p>Uživatelské jméno:</p>
+        </div>
+        <div class="col s3">
+            <p>{{user.username}}</p>
         </div>
     </div>
+    <div class="row">
+        <div class="col offset-s3">
+            <p>Telefon:</p>
+        </div>
+        <div class="col s3">
+            <p>{{user.phone}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col offset-s3">
+            <p>Email:</p>
+        </div>
+        <div class="col s3">
+            <p>{{user.email}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col offset-s3">
+            <a href="change_password">Změnit heslo</a>
+        </div>
+       </div>
 </main>
 {% include "footer.html" %}

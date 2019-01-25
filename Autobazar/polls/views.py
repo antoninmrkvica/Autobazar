@@ -207,7 +207,7 @@ def delete_car(request):
     return redirect("index")
 
 
-def acc(request):
+def change_password(request):
     if request.method == "POST":
         old_password = request.POST.get('oldpasswd')
         new_pass = request.POST.get('passwd')
@@ -217,14 +217,19 @@ def acc(request):
         if user.last().password == old_password and new_pass == new_pass_conf:
             user.update(password=new_pass)
             user.last().save()
+            return redirect('acc')
         else:
-            return render(request, "./acc.html",
+            return render(request, "./change_password.html",
                    {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
                     "msg": "Špatné staré heslo nebo se nová hesla neshodují"})
 
-    return render(request, "./acc.html",
+    return render(request, "./change_password.html",
                   {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
 
+
+def acc(request):
+    return render(request, "./acc.html",
+                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
 
 def send_password(request):
     return render(request, "./send_password.html",
