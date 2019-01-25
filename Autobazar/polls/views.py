@@ -5,6 +5,7 @@ from django.core.files.storage import FileSystemStorage
 
 cars = Car.objects.all()
 
+
 def sidenav_gener():
     # list for sidenav
     sorted_dict.clear()
@@ -21,7 +22,7 @@ def sidenav_gener():
         sorted_dict.update({item: car_model_list[item]})
 
 
-#generate sidenav_gener() after start and every time while new car is added to be sold - after remove need to do it !!
+# generate sidenav_gener() after start and every time while new car is added to be sold - after remove need to do it !!
 sorted_dict = {}
 sidenav_gener()
 
@@ -32,19 +33,17 @@ parameters = [["znacka", "Značka"], ["model", "Model"],
 
 # Create your views here.
 
-def logged(req):
-    if (req.session.get('user_id')):
-        return True
-    else:
-        return False
+
+def current_user(user_id):
+    return User.objects.filter(id=user_id).last()
 
 
 def index(request):
-
     # print(Car.objects.all().values())
 
     return render(request, "./index.html",
-                  {"logged": logged(request), "cars": Car.objects.all(), "car_list": sorted_dict})
+                  {"cars": Car.objects.all(), "car_list": sorted_dict,
+                   "user": current_user(request.session.get('user_id'))})
 
 
 def login(request):
@@ -57,10 +56,11 @@ def login(request):
         if searched_user:
             request.session['user_id'] = searched_user[0].id
         else:
-            return render(request, "./login.html", {"car_list": sorted_dict, "msg": "Uživatelské jméno neexistuje nebo bylo zadáno špatné heslo."})
+            return render(request, "./login.html", {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
+                                                    "msg": "Uživatelské jméno neexistuje nebo bylo zadáno špatné heslo."})
         return redirect("index")
     else:
-        return render(request, "./login.html", {"car_list": sorted_dict})
+        return render(request, "./login.html", {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
 
 
 def reg(request):
@@ -82,7 +82,7 @@ def reg(request):
             request.session['user_id'] = new_user.id
             return redirect("index")
     else:
-        return render(request, "./reg.html", {"car_list": sorted_dict, "msg": ""})
+        return render(request, "./reg.html", {"user": current_user(request.session.get('user_id')),"car_list": sorted_dict, "msg": ""})
 
 
 def logout(request):
@@ -118,12 +118,13 @@ def sell(request):
         sidenav_gener()
         return redirect("index")
     return render(request, "./sell.html",
-                  {"logged": logged(request), "car_list": sorted_dict,
+                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
                    "car_param": parameters})
 
 
 def search(request):
-    return render(request, "./search.html", {"logged": logged(request), "car_list": sorted_dict})
+    return render(request, "./search.html",
+                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
 
 
 def viewmodels(request):
@@ -137,15 +138,15 @@ def viewmodels(request):
             filtered_cars.append(carf)
 
     return render(request, "./index.html",
-                  {"logged": logged(request), "cars": filtered_cars, "car_list": sorted_dict})
+                  {"user": current_user(request.session.get('user_id')), "cars": filtered_cars,
+                   "car_list": sorted_dict})
 
 
 def view(request):
     car_id = request.GET.get('car_id')
-    user = User.objects.filter(id=request.session.get('user_id')).last()
     return render(request, "./view.html",
-                  {"logged": logged(request), "car_list": sorted_dict, "car": Car.objects.filter(id=car_id)[0],
-                   "user": user})
+                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
+                   "car": Car.objects.filter(id=car_id)[0]})
 
 
 def edit_car(request):
@@ -169,7 +170,7 @@ def edit_car(request):
                    add_date=datetime.datetime.now(), fuel_type=spec_params[7], description=request.POST.get('popis'),
                    repair=request.POST.get("opravy"), defects=request.POST.get("poskozeni"))
         imgs = request.FILES.getlist('files')
-        car=car[0]
+        car = car[0]
         for img in imgs:
             car.set_image("./media/" + str(car.id) + "/" + img.name)
             fs = FileSystemStorage(location="./polls/media/" + str(car.id))
@@ -179,8 +180,10 @@ def edit_car(request):
         return HttpResponseRedirect("view?car_id=" + car_id)
     car_id = request.GET.get('car_id')
     return render(request, "./edit_car.html",
-                  {"logged": logged(request), "car_list": sorted_dict, "car": Car.objects.filter(id=car_id)[0],
+                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
+                   "car": Car.objects.filter(id=car_id)[0],
                    "car_param": parameters})
+
 
 def remove_image(request):
     car_id = request.GET.get('car_id')
@@ -190,6 +193,7 @@ def remove_image(request):
     car.save()
     return HttpResponse('remove done!!')
 
+
 def delete_car(request):
     id = request.GET.get('car_id')
     car = Car.objects.filter(id=id)
@@ -198,3 +202,12 @@ def delete_car(request):
         car.delete()
     sidenav_gener()
     return redirect("index")
+
+def acc(request):
+    return render(request, "./acc.html",
+                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
+
+def send_password(request):
+    return render(request, "./send_password.html",
+                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
+

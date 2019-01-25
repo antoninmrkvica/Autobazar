@@ -37,10 +37,11 @@
             <li><a href="/search"><i class="material-icons">search</i></a></li>
         </ul>
         <ul class="right hide-on-med-and-down">
-            {% if not logged %}
+            {% if not user %}
             <li><a href="/login">Login</a></li>
             <li><a href="/reg">Register</a></li>
             {% else %}
+            <li><a href="/acc" class=" right-align">{{ user.username }}</a></li>
             <li><a href="/logout" class=" right-align">Logout</a></li>
             {% endif %}
 
