@@ -92,4 +92,4 @@ db.sqlite3
 
 .idea/
 media/
-<Autobazar>/settings_secret.py
+Autobazar/settings_secret.py
