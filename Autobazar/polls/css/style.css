@@ -13,11 +13,7 @@ main {
     font-size: 200%;
 }
 
-nav {
-    padding-left: 300px;
-    background-color: #3d5afe;
 
-}
 
 .pad10 {
 
@@ -26,4 +22,10 @@ nav {
 
 .nav {
     color: white;
+}
+
+.sidenav{
+    position: absolute;
+   margin-top: 60px;
+
 }
