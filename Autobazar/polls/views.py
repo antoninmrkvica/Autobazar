@@ -32,12 +32,15 @@ parameters = [["znacka", "Značka"], ["model", "Model"],
               ["cena", "Cena"], ["datum_vyroby", "Datum výroby"], ["fuel_type", "Typ paliva"]]
 
 
-# Create your views here.
+marks=['ALFA ROMEO','AUDI','BMW','CHEVROLET','CITROËN']
+models=['','']
 
 
 def current_user(user_id):
     return User.objects.filter(id=user_id).last()
 
+
+#views ||
 
 def index(request):
     # print(Car.objects.all().values())
