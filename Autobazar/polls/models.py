@@ -27,6 +27,7 @@ class Car(models.Model):
     repair = models.CharField(max_length=500)
     defects = models.CharField(max_length=500)
     description = models.CharField(max_length=500)
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 
@@ -44,3 +45,9 @@ class Car(models.Model):
         del all_images[index]
         self.images_paths = json.dumps(all_images)
 
+
+class Comment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.CharField(max_length=50)
+    date = models.CharField(max_length=50)
