@@ -25,6 +25,8 @@ def sidenav_gener():
 
 # generate sidenav_gener() after start and every time while new car is added to be sold or exists car is removed
 sorted_dict = {}
+
+# zakomentarovat pri vytvareni databaze
 sidenav_gener()
 
 parameters = [["znacka", "Značka"], ["model", "Model"],

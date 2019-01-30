@@ -15,7 +15,7 @@ class Car(models.Model):
     mark = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
     images_paths = models.CharField(max_length=50, default=json.dumps([]))
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='owner')
     manufacture_date = models.CharField(max_length=50)
     killometres = models.CharField(max_length=50)
     price = models.CharField(max_length=50)
@@ -27,7 +27,7 @@ class Car(models.Model):
     repair = models.CharField(max_length=500)
     defects = models.CharField(max_length=500)
     description = models.CharField(max_length=500)
-    buyer = models.ForeignKey(User, on_delete=models.CASCADE)
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='buyer')
 
 
 
@@ -47,7 +47,7 @@ class Car(models.Model):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='author')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='reciever')
     text = models.CharField(max_length=50)
     date = models.CharField(max_length=50)
