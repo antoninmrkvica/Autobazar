@@ -27,7 +27,8 @@ def sidenav_gener():
 sorted_dict = {}
 
 # zakomentarovat pri vytvareni databaze
-sidenav_gener()
+#sidenav_gener()
+first_start = True
 
 parameters = [["znacka", "Značka"], ["model", "Model"],
               ["motorizace", "Motorizace"], ["vykon", "Výkon [kw]"], ["tachometr", "Tachometr"],
@@ -46,7 +47,10 @@ def current_user(user_id):
 
 def index(request):
     # print(Car.objects.all().values())
-
+    global first_start
+    if first_start:
+        sidenav_gener()
+        first_start = False
     return render(request, "./index.html",
                   {"cars": Car.objects.all(), "car_list": sorted_dict,
                    "user": current_user(request.session.get('user_id'))})
