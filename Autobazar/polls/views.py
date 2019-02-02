@@ -27,23 +27,22 @@ def sidenav_gener():
 sorted_dict = {}
 
 # zakomentarovat pri vytvareni databaze
-#sidenav_gener()
+# sidenav_gener()
 first_start = True
 
 parameters = [["znacka", "Značka"], ["model", "Model"],
               ["motorizace", "Motorizace"], ["vykon", "Výkon [kw]"], ["tachometr", "Tachometr"],
               ["cena", "Cena"], ["datum_vyroby", "Datum výroby"], ["fuel_type", "Typ paliva"]]
 
-
-marks=['ALFA ROMEO','AUDI','BMW','CHEVROLET','CITROËN']
-models=['','']
+marks = ['ALFA ROMEO', 'AUDI', 'BMW', 'CHEVROLET', 'CITROËN']
+models = ['', '']
 
 
 def current_user(user_id):
     return User.objects.filter(id=user_id).last()
 
 
-#views ||
+# views ||
 
 def index(request):
     # print(Car.objects.all().values())
@@ -247,7 +246,7 @@ def send_password(request):
         email = request.POST.get('email')
         user = User.objects.filter(email=email)
         if email and user:
-            text = 'Uživatelské jméno: '+user.last().username+'\n Heslo: ' + user.last().password
+            text = 'Uživatelské jméno: ' + user.last().username + '\n Heslo: ' + user.last().password
             send_mail(
                 'Autobazar password',
                 text,
@@ -264,3 +263,20 @@ def send_password(request):
 
     return render(request, "./send_password.html",
                   {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
+
+
+def buy_car(request):
+    user = current_user(request.session.get('user_id'))
+    car_id = request.GET.get('car_id')
+    url = request.GET.get('url')
+    car = Car.objects.filter(id=car_id)
+    car.update(buyer=user)
+    car.last().save()
+    send_mail(
+        'Autobazar - koupě automobilu',
+        "Dobrý den,\nUživatel " + user.username + " (email: " + user.email + ", tel: "+ user.phone +") chce odkoupit Váš automobil: "+url+".\nProsím Vás kontaktujte uživatele na email nebo telefon pro dokončení obchodu.\nPo uskutečnění obchodu potvrďte odkup automobilu na stránkách autobazaru pro odstranění inzerátu.\nDěkuji Vám za užívání mého webu,\nAutobazar Mrkvica",
+        'autobazarmrkvica@gmail.com',
+        [car.last().owner.email],
+        fail_silently=False,
+    )
+    return HttpResponse("Byl poslán email prodejci s vašimi kontaktními údaji(email, telefon). Vyčkejte až se vám majitel ozve.")

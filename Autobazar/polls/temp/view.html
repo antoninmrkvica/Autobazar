@@ -40,8 +40,21 @@
         </div>
 
         <div class="col s3 offset-s3">
-            <button type="button" class="btn green">Chci koupit tohle super auto</button>
+            <button type="button" class="btn green" onclick="buy_car();">Chci koupit tohle super auto</button>
         </div>
     </div>
 </main>
+
 {% include "footer.html" %}
+
+<script type="application/javascript">
+    function buy_car() {
+        $.ajax({
+            url:window.location.origin+'/buy_car?car_id='+"{{ car.id }}"+"&url="+window.location.href,
+            type:"GET",
+            success: function(result){
+                M.toast({html: result, classes: 'rounded'});
+            }
+        });
+    }
+</script>

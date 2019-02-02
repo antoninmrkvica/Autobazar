@@ -28,6 +28,7 @@ class Car(models.Model):
     defects = models.CharField(max_length=500)
     description = models.CharField(max_length=500)
     buyer = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='buyer')
+    buy = models.CharField(max_length=500)
 
 
 
