@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
-from .models import User, Car
+from .models import User, Car, Comment
 import datetime
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
@@ -274,9 +274,30 @@ def buy_car(request):
     car.last().save()
     send_mail(
         'Autobazar - koupě automobilu',
-        "Dobrý den,\nUživatel " + user.username + " (email: " + user.email + ", tel: "+ user.phone +") chce odkoupit Váš automobil: "+url+".\nProsím Vás kontaktujte uživatele na email nebo telefon pro dokončení obchodu.\nPo uskutečnění obchodu potvrďte odkup automobilu na stránkách autobazaru pro odstranění inzerátu.\nDěkuji Vám za užívání mého webu,\nAutobazar Mrkvica",
+        "Dobrý den,\nUživatel " + user.username + " (email: " + user.email + ", tel: " + user.phone + ") chce odkoupit Váš automobil: " + url + ".\nProsím Vás kontaktujte uživatele na email nebo telefon pro dokončení obchodu.\nPo uskutečnění obchodu potvrďte odkup automobilu na stránkách autobazaru pro odstranění inzerátu.\nDěkuji Vám za užívání mého webu,\nAutobazar Mrkvica",
         'autobazarmrkvica@gmail.com',
         [car.last().owner.email],
         fail_silently=False,
     )
-    return HttpResponse("Byl poslán email prodejci s vašimi kontaktními údaji(email, telefon). Vyčkejte až se vám majitel ozve.")
+    return HttpResponse(
+        "Byl poslán email prodejci s vašimi kontaktními údaji(email, telefon). Vyčkejte až se vám majitel ozve.")
+
+
+
+def profile(request):
+    user_id = request.GET.get('user_id')
+    user = current_user(user_id)
+    comment_list = list(Comment.objects.filter(receiver=user))
+    return render(request, "./profile.html",
+                  {"user": user, "car_list": sorted_dict, "comment_list": comment_list})
+
+
+def add_comment(request):
+    comment = request.GET.get('comment')
+    if comment:
+        user_id = request.GET.get('user_id')
+        comm = Comment(author=current_user(request.session.get('user_id')), receiver=User.objects.filter(id=user_id).last(),
+                       text=comment, date=datetime.datetime.now())
+        comm.save()
+        return HttpResponse("Byl přidán komentář.")
+    return HttpResponse("Bohužel něco se nepovedlo.")

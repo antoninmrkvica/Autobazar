@@ -2,13 +2,13 @@ from django.db import models
 import json
 # Create your models here.
 
+
 class User(models.Model):
     is_admin = models.BooleanField(default=True)
     username = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
     phone = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
-
 
 
 class Car(models.Model):
@@ -28,9 +28,6 @@ class Car(models.Model):
     defects = models.CharField(max_length=500)
     description = models.CharField(max_length=500)
     buyer = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='buyer')
-    buy = models.CharField(max_length=500)
-
-
 
     def set_image(self, image_path):
         images = json.loads(self.images_paths)

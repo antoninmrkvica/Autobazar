@@ -1,0 +1,86 @@
+{% include "header_nav.html" %}
+<main>
+
+    <div class="row">
+        <div class="col offset-s3">
+            <span>Uživatelské jméno:</span>
+        </div>
+        <div class="col s3">
+            <span>{{user.username}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col offset-s3">
+            <span>Telefon:</span>
+        </div>
+        <div class="col s3">
+            <span>{{user.phone}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col offset-s3">
+            <span>Email:</span>
+        </div>
+        <div class="col s3">
+            <span>{{user.email}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col offset-s3">
+            <span>Komentáře:</span>
+        </div>
+        {% for comment in comment_list %}
+        <div class="row col s9 offset-s5">
+            <span>{{comment.author.username}}: {{comment.text}}</span>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+        <div class="col offset-s3">
+            {% if user %}
+
+            {% csrf_token %}
+            <div class="col s6">
+                <br>
+                <button class="btn waves-effect waves-light indigo accent-3" type="button" onclick="create_comment()">
+                    Odeslat
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+            <div class="col s6">
+                <div class="input-field">
+                    <textarea id="comment" class="materialize-textarea" name="comment"></textarea>
+                    <label for="comment">Komentář</label>
+                </div>
+            </div>
+            {% else %}
+            <div class="row">
+                <div class="col offset-s3">
+                    <br>
+                    <h5>
+                        <a href="login">
+                            Pokud chceš přidávat komentáře, musís se příhlásit.
+                        </a>
+                    </h5>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% include "footer.html" %}
+
+<script type="application/javascript">
+    function create_comment() {
+        comment =$('#comment').val();
+            $.ajax({
+                url: window.location.origin + '/add_comment?user_id={{user.id}}&comment=' + comment,
+                type: "GET",
+                success: function (res) {
+                    M.toast({html: res, classes: 'rounded'});
+                    setTimeout(function(){ location.reload();}, 2000);
+
+                }
+            });
+    }
+</script>

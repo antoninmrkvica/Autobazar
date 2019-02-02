@@ -17,5 +17,7 @@ urlpatterns = [
     path('send_password', views.send_password, name='send_password'),
     path('change_password', views.change_password, name='change_password'),
     path('acc', views.acc, name='acc'),
+    path('profile', views.profile, name='profile'),
     path('buy_car', views.buy_car, name='buy_car'),
+    path('add_comment', views.add_comment, name='add_comment'),
 ]
