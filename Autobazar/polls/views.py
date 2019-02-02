@@ -12,15 +12,16 @@ def sidenav_gener():
     sorted_dict.clear()
     car_model_list = {}
     cars = Car.objects.all()
-    for car in cars:
-        car_model_list[car.mark.strip().upper()] = set()
-    for car in cars:
-        car_model_list[car.mark.strip().upper()].add(car.model.strip().upper())
+    if cars:
+        for car in cars:
+            car_model_list[car.mark.strip().upper()] = set()
+        for car in cars:
+            car_model_list[car.mark.strip().upper()].add(car.model.strip().upper())
 
-    # sort at the end
+        # sort at the end
 
-    for item in sorted(car_model_list):
-        sorted_dict.update({item: car_model_list[item]})
+        for item in sorted(car_model_list):
+            sorted_dict.update({item: car_model_list[item]})
 
 
 # generate sidenav_gener() after start and every time while new car is added to be sold or exists car is removed
