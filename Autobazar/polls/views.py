@@ -4,7 +4,7 @@ import datetime
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
 
-cars = Car.objects.all()
+cars = Car.objects.all() or []
 
 
 def sidenav_gener():
