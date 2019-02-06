@@ -35,7 +35,9 @@ parameters = [["znacka", "Značka"], ["model", "Model"],
               ["motorizace", "Motorizace"], ["vykon", "Výkon [kw]"], ["tachometr", "Tachometr"],
               ["cena", "Cena"], ["datum_vyroby", "Datum výroby"], ["fuel_type", "Typ paliva"]]
 
-marks = ['ALFA ROMEO', 'AUDI', 'BMW', 'CHEVROLET', 'CITROËN']
+marks = ['ALFA ROMEO', 'AUDI', 'BMW', 'CHEVROLET', 'CITROËN', 'DACIA', 'FIAT', 'FORD', 'HONDA', 'HYUNDAI', 'JEEP', 'KIA',
+         'LAND ROWER', 'MAZDA', 'MERCEDES-BENZ', 'MITSUBISHI', 'NISSAN', 'OPEL', 'PEUGEOT', 'RENAULT', 'SEAT', 'ŠKODA',
+         'SUBARU', 'SUZUKI', 'TOYOTA', 'VOLVO', 'VOLKSWAGEN', 'JINÉ']
 models = ['', '']
 
 
@@ -132,7 +134,7 @@ def sell(request):
         return redirect("index")
     return render(request, "./sell.html",
                   {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
-                   "car_param": parameters})
+                   "car_param": parameters, "marks":marks})
 
 
 def search(request):

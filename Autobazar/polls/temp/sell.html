@@ -5,10 +5,19 @@
         {% csrf_token %}
         <div class="row">
             <div class="row col offset-s3">
+                <div class="input-field col s3">
+                    <select>
+                        <option value="" disabled selected>Zvol značku auta</option>
+                        {% for mark in marks %}
+                        <option value="{{ mark }}">{{ mark }}</option>
+                        {% endfor %}
+                    </select>
+                    <label>Značka</label>
+                </div>
                 {% for item, name in car_param %}
                 <div class="input-field col">
                     <input id="{{ item }}" type="text" class="validate" name="{{ item }}">
-                    <label class="active" for="{{ item }}">{{ name }}</label>
+                    <label class="active" id="{{ item }}l" for="{{ item }}">{{ name }}</label>
                 </div>
                 {% endfor %}
 
@@ -61,6 +70,23 @@
 </main>
 {% include "footer.html" %}
 <script type="application/javascript">
+    $('#znacka').hide();
+    $('#znackal').hide();
+    $('select').formSelect().on('change', function () {
+        let selected_value = $('select').val();
+        if(selected_value=="JINÉ"){
+            $('#znacka').show();
+            $('#znackal').show();
+            $('#znacka').val('')
+        }
+        else {
+            $('#znacka').val(selected_value)
+            $('#znacka').hide();
+            $('#znackal').hide();
+        }
+
+        console.log();
+    });
 
     function readURL(input) {
         reader = new FileReader();
@@ -68,7 +94,7 @@
         reader.onload = function (e) {
             //create img in div(id="images") with src of uploaded image
             $('#images')
-                    .append($('<img />').attr('src', e.target.result).attr('width', '300'));
+                .append($('<img />').attr('src', e.target.result).attr('width', '300'));
         };
         reader.readAsDataURL(input);
     }
