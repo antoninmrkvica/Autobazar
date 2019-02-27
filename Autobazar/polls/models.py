@@ -4,11 +4,12 @@ import json
 
 
 class User(models.Model):
-    is_admin = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
     username = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
     phone = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
+
 
 
 class Car(models.Model):

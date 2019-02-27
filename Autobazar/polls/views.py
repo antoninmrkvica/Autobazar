@@ -41,6 +41,7 @@ marks = ['ALFA ROMEO', 'AUDI', 'BMW', 'CHEVROLET', 'CITROËN', 'DACIA', 'FIAT', 
 models = ['', '']
 
 
+
 def current_user(user_id):
     return User.objects.filter(id=user_id).last()
 
@@ -92,7 +93,10 @@ def reg(request):
             return render(request, "./reg.html", {"msg": "Uživatelské jméno již existuje!!"})
         else:
             new_user = User(username=username, password=passwd, phone=phone, email=email)
+            if len(list(User.objects.all())) == 0:
+                new_user.is_admin=True
             new_user.save()
+
             request.session['user_id'] = new_user.id
             return redirect("index")
     else:
@@ -292,7 +296,7 @@ def profile(request):
     user = current_user(user_id)
     comment_list = list(Comment.objects.filter(receiver=user))
     return render(request, "./profile.html",
-                  {"user": user, "car_list": sorted_dict, "comment_list": comment_list})
+                  {"user": current_user(request.session.get('user_id')), "profile":user, "car_list": sorted_dict, "comment_list": comment_list})
 
 
 def add_comment(request):
