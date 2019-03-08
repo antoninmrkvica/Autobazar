@@ -25,14 +25,14 @@
             <div class="col s9 offset-s3">
                 <h5>{{car.mark.upper}} {{car.model.upper}} {{car.motorization}}</h5>
                 <a href="/profile?user_id={{car.owner.id}}">Prodávajicí: {{car.owner.username}}</a>
-                <p>Značka: {{user.is_admin}}</p>
+                <p>Značka: {{car.mark}}</p>
                 <p>Model: {{car.model}}</p>
                 <p>Motorizace: {{car.motorization}}</p>
                 <p>Typ Paliva: {{car.fuel_type}}</p>
                 <p>Výkon: {{car.performance_kw}} kw ({{car.performance_hp}} HP)</p>
                 <p>Datum výroby: {{car.manufacture_date}}</p>
                 <p>Najeto: {{car.killometres}} km</p>
-                <p>Cena: {{car.price}}</p>
+                <p>Cena: {{car.price}} Kč</p>
                 <br>
                 <p>Popis: {{car.description}}</p>
                 <p>Závady: {{car.defects}}</p>
