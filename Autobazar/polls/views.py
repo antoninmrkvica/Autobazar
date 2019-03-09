@@ -32,7 +32,7 @@ sorted_dict = {}
 first_start = True
 
 parameters = [["znacka", "Značka"], ["model", "Model"],
-              ["motorizace", "Motorizace"], ["vykon", "Výkon [kw]"], ["tachometr", "Tachometr"],
+              ["objem", "Objem motoru [L]"],["turbo", "Turbo"], ["vykon", "Výkon [kw]"], ["tachometr", "Tachometr"],
               ["cena", "Cena"], ["datum_vyroby", "Datum výroby"], ["fuel_type", "Typ paliva"]]
 
 marks = ['ALFA ROMEO', 'AUDI', 'BMW', 'CHEVROLET', 'CITROËN', 'DACIA', 'FIAT', 'FORD', 'HONDA', 'HYUNDAI', 'JEEP', 'KIA',
@@ -117,15 +117,15 @@ def sell(request):
             if not spec_param:
                 spec_param = "null"
             spec_params.append(spec_param)
-        perform = spec_params[3]
+        perform = spec_params[4]
         if perform != "null":
             perform = str(round(float(perform) * 1.34102209))
-        new_car = Car(mark=spec_params[0], model=spec_params[1], motorization=spec_params[2],
-                      performance_kw=spec_params[3], performance_hp=perform,
-                      killometres=spec_params[4], price=spec_params[5],
-                      manufacture_date=spec_params[6],
+        new_car = Car(mark=spec_params[0], model=spec_params[1], engine_capacity=spec_params[2], turbo=spec_params[3],
+                      performance_kw=spec_params[4], performance_hp=perform,
+                      killometres=spec_params[5], price=spec_params[6],
+                      manufacture_date=spec_params[7],
                       owner=User.objects.filter(id=request.session.get('user_id'))[0],
-                      add_date=datetime.datetime.now(), fuel_type=spec_params[7], description=request.POST.get('popis'),
+                      add_date=datetime.datetime.now(), fuel_type=spec_params[8], description=request.POST.get('popis'),
                       repair=request.POST.get("opravy"), defects=request.POST.get("poskozeni"))
         new_car.save()
         imgs = request.FILES.getlist('files')
@@ -178,16 +178,16 @@ def edit_car(request):
             if not spec_param:
                 spec_param = "null"
             spec_params.append(spec_param)
-        perform = spec_params[3]
+        perform = spec_params[4]
         if perform != "null":
             perform = str(round(float(perform) * 1.34102209))
-        car.update(mark=spec_params[0], model=spec_params[1], motorization=spec_params[2],
-                   performance_kw=spec_params[3], performance_hp=perform,
-                   killometres=spec_params[4], price=spec_params[5],
-                   manufacture_date=spec_params[6],
-                   owner=User.objects.filter(id=request.session.get('user_id'))[0],
-                   add_date=datetime.datetime.now(), fuel_type=spec_params[7], description=request.POST.get('popis'),
-                   repair=request.POST.get("opravy"), defects=request.POST.get("poskozeni"))
+        car.update(mark=spec_params[0], model=spec_params[1], engine_capacity=spec_params[2], turbo=spec_params[3],
+                      performance_kw=spec_params[4], performance_hp=perform,
+                      killometres=spec_params[5], price=spec_params[6],
+                      manufacture_date=spec_params[7],
+                      owner=User.objects.filter(id=request.session.get('user_id'))[0],
+                      add_date=datetime.datetime.now(), fuel_type=spec_params[8], description=request.POST.get('popis'),
+                      repair=request.POST.get("opravy"), defects=request.POST.get("poskozeni"))
         imgs = request.FILES.getlist('files')
         car = car[0]
         for img in imgs:

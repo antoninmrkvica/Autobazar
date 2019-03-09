@@ -6,7 +6,7 @@
         <div class="row">
             <div class="row col offset-s3">
                 <div class="input-field col s3">
-                    <select>
+                    <select class="zn">
                         <option value="" disabled selected>Zvol značku auta</option>
                         {% for mark in marks %}
                         <option value="{{ mark }}">{{ mark }}</option>
@@ -15,10 +15,22 @@
                     <label>Značka</label>
                 </div>
                 {% for item, name in car_param %}
+                {% if item == 'turbo' %}
+                <div class="input-field  col">
+                    <input type="hidden" id="turbo" name="turbo">
+                    <select class="turb">
+                        <option value="Ne">Ne</option>
+                        <option value="Ano">Ano</option>
+
+                    </select>
+                    <label>Turbo</label>
+                </div>
+                {% else %}
                 <div class="input-field col">
                     <input id="{{ item }}" type="text" class="validate" name="{{ item }}">
                     <label class="active" id="{{ item }}l" for="{{ item }}">{{ name }}</label>
                 </div>
+                {% endif %}
                 {% endfor %}
 
                 <div class="input-field col s11">
@@ -72,9 +84,9 @@
 <script type="application/javascript">
     $('#znacka').hide();
     $('#znackal').hide();
-    $('select').formSelect().on('change', function () {
-        let selected_value = $('select').val();
-        if(selected_value=="JINÉ"){
+    $('.zn').formSelect().on('change', function () {
+        let selected_value = $('.zn').val();
+        if (selected_value == "JINÉ") {
             $('#znacka').show();
             $('#znackal').show();
             $('#znacka').val('');
@@ -88,13 +100,18 @@
         console.log();
     });
 
+    $('.turb').formSelect().on('change', function () {
+        let selected_value = $('.turb').val();
+        $('#turbo').val(selected_value);
+    });
+
     function readURL(input) {
         reader = new FileReader();
 
         reader.onload = function (e) {
             //create img in div(id="images") with src of uploaded image
             $('#images')
-                .append($('<img />').attr('src', e.target.result).attr('width', '300'));
+                    .append($('<img />').attr('src', e.target.result).attr('width', '300'));
         };
         reader.readAsDataURL(input);
     }
