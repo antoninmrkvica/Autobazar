@@ -3,7 +3,7 @@
     <form method="post" enctype="multipart/form-data" action="/edit_car">
         {% csrf_token %}
         <div class="row">
-            <div class="row col offset-s3">
+            <div class="row col">
                 <input hidden name="car_id" value="{{car.id}}">
                 {% for item, name in car_param %}
                 <div class="input-field col">

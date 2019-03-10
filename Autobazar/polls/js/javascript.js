@@ -17,12 +17,22 @@ $('.rotateimg').css(
 );
 setTimeout(rotate, time)
 }
-
-$('.sidenav').css({top:$('.nav-wrapper').height()});
 let counter = 0;
 let time= 10;
 setTimeout(rotate, time);
 
+
 window.onresize = function () {
     $('.sidenav').css({top:$('.nav-wrapper').height()});
+    if (window.innerWidth < 993){
+        $('main').css({marginLeft:0});
+        $('footer').css({marginLeft:0});
+    }
+    else{
+        $('main').css({marginLeft:300});
+        $('footer').css({marginLeft:300});
+
+    }
 };
+
+window.onresize();

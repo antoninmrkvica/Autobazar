@@ -10,8 +10,8 @@
     </div>
     {% endif %}
     <div class="row">
-        <div class="col s9 offset-s3">
-            <div class="slider col s9">
+        <div class="col s12">
+            <div class="slider col s12">
                 <ul class="slides">
                     {% for image in car.get_images %}
                     <li>
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s9 offset-s3">
+            <div class="col s12">
                 <h5>{{car.mark.upper}} {{car.model.upper}} {{car.motorization}}</h5>
                 <hr style="margin-right: 20%">
                 Prodávajicí: <a href="/profile?user_id={{car.owner.id}}" class="btn grey darken-2">{{car.owner.username}}</a>
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="col s3 offset-s3">
+        <div class="col s12">
             <button type="button" class="btn grey darken-2 pulse" onclick="buy_car();">Chci koupit tohle auto</button>
         </div>
     </div>

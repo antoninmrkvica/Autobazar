@@ -1,7 +1,7 @@
 {% include "header_nav.html" %}
 <main>
     <div class="row">
-        <div class="col offset-s3">
+        <div class="col ">
             <span>Uživatelské jméno:</span>
         </div>
         <div class="col s3">
@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col offset-s3">
+        <div class="col ">
             <span>Telefon:</span>
         </div>
         <div class="col s3">
@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col offset-s3">
+        <div class="col ">
             <span>Email:</span>
         </div>
         <div class="col s3">
@@ -26,13 +26,13 @@
     </div>
     {% if user.is_admin %}
     <div class="row">
-        <div class="col offset-s3">
+        <div class="col ">
             <span>Jsi admin</span>
         </div>
     </div>
     {% endif %}
     <div class="row">
-        <div class="col offset-s3">
+        <div class="col">
             <a href="change_password" class="btn grey darken-2">Změnit heslo</a>
         </div>
        </div>
