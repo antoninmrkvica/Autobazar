@@ -12,44 +12,46 @@
 </head>
 <body>
 <div class="navbar-fixed">
-<nav class="top-nav">
-    <div class="nav">
-        <ul id="slide-out" class="sidenav sidenav-fixed indigo accent-3">
-            <a href="/"><h5 class="center-align">Auta</h5></a>
-            <ul class="collapsible">
-                {% for cars_mark, values in car_list.items %}
-                <li>
-                    <div class="collapsible-header">{{cars_mark}}</div>
-                    {% for carmodel in values %}
-                    <div class="collapsible-body indigo accent-3"><a href="/viewmodels?model={{carmodel}}&mark={{cars_mark}}" class="pad10">{{carmodel}}</a></div>
-                    {% endfor %}
-                </li>
-                {% endfor %}
+    <nav class="top-nav">
+
+
+        <div class="nav-wrapper black">
+            <ul class="left hide-on-med-and-down">
+                <li><img class="rotateimg" src="static/temp/images/wheel.png" width="60"/></li>
+                <li><a href="/" id="logo">Autobazar</a></li>
+                <li><a href="/sell">Chci prodat auto</a></li>
+                <li><a href="/search"><i class="material-icons">search</i></a></li>
             </ul>
-        </ul>
-        <a href="#" data-target="slide-out" data-activates="mobile-demo" class="sidenav-trigger"><i
-                class="material-icons">menu</i></a>
-    </div>
+            <ul class="right hide-on-med-and-down">
+                {% if not user %}
+                <li><a href="/login">Login</a></li>
+                <li><a href="/reg">Register</a></li>
+                {% else %}
+                <li><a href="/acc" class=" right-align">{{ user.username }}</a></li>
+                <li><a href="/logout" class=" right-align">Logout</a></li>
+                {% endif %}
 
-    <div class="nav-wrapper indigo accent-3">
-        <ul class="left hide-on-med-and-down">
-            <li><img class="rotateimg" src="static/temp/images/wheel.png" width="60"/></li>
-            <li><a href="/" id="logo">Autobazar</a></li>
-            <li><a href="/sell">Chci prodat auto</a></li>
-            <li><a href="/search"><i class="material-icons">search</i></a></li>
-        </ul>
-        <ul class="right hide-on-med-and-down">
-            {% if not user %}
-            <li><a href="/login">Login</a></li>
-            <li><a href="/reg">Register</a></li>
-            {% else %}
-            <li><a href="/acc" class=" right-align">{{ user.username }}</a></li>
-            <li><a href="/logout" class=" right-align">Logout</a></li>
-            {% endif %}
+            </ul>
+        </div>
+    </nav>
 
-        </ul>
-    </div>
-</nav>
 </div>
+    <ul id="slide-out" class="sidenav sidenav-fixed grey darken-3 grey-text">
+        <a href="/"><h5 class="center-align grey-text">Prodávaná vozidla</h5></a>
+        <hr>
+        <ul class="collapsible">
+            {% for cars_mark, values in car_list.items %}
+            <li>
+                <div class="collapsible-header">{{cars_mark}}</div>
+                {% for carmodel in values %}
+                <div class="collapsible-body grey darken-3 grey-text"><a
+                        href="/viewmodels?model={{carmodel}}&mark={{cars_mark}}" class="pad10">{{carmodel}}</a></div>
+                {% endfor %}
+            </li>
+            {% endfor %}
+        </ul>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 <div class="row"></div>
+
 
