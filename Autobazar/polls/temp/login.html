@@ -3,21 +3,25 @@
     <div class="row center">
         <form method="post">
             {% csrf_token %}
-            <div class="row col offset-s4">
-                <div class="input-field col s4">
-                    <input id="username" type="text" class="validate" name="username">
-                    <label class="active" for="username">Uživatelské jméno</label>
+            <div class="col s9 offset-s4 center-align">
+                <div class="row">
+                    <div class="input-field col s5">
+                        <input id="username" type="text" class="validate" name="username">
+                        <label class="active" for="username">Uživatelské jméno</label>
+                    </div>
                 </div>
-
-                <div class="input-field col s4">
-                    <input id="passwd" type="password" class="validate" name="passwd">
-                    <label class="active" for="passwd">Heslo</label>
+                <div class="row">
+                    <div class="input-field col s5">
+                        <input id="passwd" type="password" class="validate" name="passwd">
+                        <label class="active" for="passwd">Heslo</label>
+                    </div>
                 </div>
                 <br>
-                <button class="btn waves-effect waves-light indigo accent-3" type="submit" name="action">Odeslat
+                </div>
+                <button class="btn waves-effect waves-light grey darken-2" type="submit" name="action">Přihlásit se
                     <i class="material-icons right">send</i>
                 </button>
-            </div>
+
         </form>
         {% if msg %}
         <div class="row col s5 offset-s3">

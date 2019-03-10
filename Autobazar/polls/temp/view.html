@@ -25,8 +25,8 @@
             <div class="col s9 offset-s3">
                 <h5>{{car.mark.upper}} {{car.model.upper}} {{car.motorization}}</h5>
                 <a href="/profile?user_id={{car.owner.id}}">Prodávajicí: {{car.owner.username}}</a>
-                <p>Značka: {{car.mark}}</p>
-                <p>Model: {{car.model}}</p>
+                <p>Značka: {{car.mark.upper}}</p>
+                <p>Model: {{car.model.upper}}</p>
                 <p>Objem motoru: {{car.engine_capacity}} L</p>
                 <p>Turbo: {{car.turbo}}</p>
                 <p>Typ Paliva: {{car.fuel_type}}</p>

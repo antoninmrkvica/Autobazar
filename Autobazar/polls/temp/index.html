@@ -10,8 +10,8 @@
                         <div class="card-image">
                             <img src="/static/{{car.images_paths|list_first}}">
                         </div>
-                        <div class="card-content">
-                            <span class="card-title" style="color:black">{{car.mark}} {{car.model}}</span>
+                        <div class="card-content center-align" style="color: #000000;">
+                            <span class="card-title" style="color:black">{{car.mark.upper}} {{car.model.upper}}</span>
                             <p>Cena: {{car.price}} Kč</p>
                             <p>Datum výroby: {{car.manufacture_date}}</p>
                             <p>Najeto kilometrů: {{car.killometres}} km</p>
