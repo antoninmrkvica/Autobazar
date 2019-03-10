@@ -24,6 +24,13 @@
             <span>{{user.email}}</span>
         </div>
     </div>
+    {% if user.is_admin %}
+    <div class="row">
+        <div class="col offset-s3">
+            <span>Jsi admin</span>
+        </div>
+    </div>
+    {% endif %}
     <div class="row">
         <div class="col offset-s3">
             <a href="change_password" class="btn grey darken-2">Změnit heslo</a>
