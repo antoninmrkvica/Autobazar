@@ -24,7 +24,8 @@
         <div class="row">
             <div class="col s9 offset-s3">
                 <h5>{{car.mark.upper}} {{car.model.upper}} {{car.motorization}}</h5>
-                <a href="/profile?user_id={{car.owner.id}}">Prodávajicí: {{car.owner.username}}</a>
+                <hr style="margin-right: 20%">
+                Prodávajicí: <a href="/profile?user_id={{car.owner.id}}" class="btn grey darken-2">{{car.owner.username}}</a>
                 <p>Značka: {{car.mark.upper}}</p>
                 <p>Model: {{car.model.upper}}</p>
                 <p>Objem motoru: {{car.engine_capacity}} L</p>
@@ -42,7 +43,7 @@
         </div>
 
         <div class="col s3 offset-s3">
-            <button type="button" class="btn green" onclick="buy_car();">Chci koupit tohle super auto</button>
+            <button type="button" class="btn grey darken-2 pulse" onclick="buy_car();">Chci koupit tohle auto</button>
         </div>
     </div>
 </main>
