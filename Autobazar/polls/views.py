@@ -29,6 +29,7 @@ sorted_dict = {}
 
 # zakomentarovat pri vytvareni databaze
 # sidenav_gener()
+# nepotrebne - obejito pomoci prvniho prihlaseni na strance
 first_start = True
 
 parameters = [["znacka", "Značka"], ["model", "Model"],
@@ -139,11 +140,6 @@ def sell(request):
     return render(request, "./sell.html",
                   {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
                    "car_param": parameters, "marks":marks})
-
-
-def search(request):
-    return render(request, "./search.html",
-                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
 
 
 def viewmodels(request):
@@ -308,3 +304,17 @@ def add_comment(request):
         comm.save()
         return HttpResponse("Byl přidán komentář.")
     return HttpResponse("Bohužel něco se nepovedlo.")
+
+
+def search(request):
+    allcars = Car.objects.all().last()
+    if request.method == "POST":
+        price = request.GET.get('range')
+        date = request.GET.get('range1')
+        killometres = request.GET.get('range2')
+
+        return render(request, "./search.html",
+                      {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars": allcars})
+    return render(request, "./search.html",
+                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars":allcars})
+

@@ -1,15 +1,19 @@
 {% include "header_nav.html" %}
 <main>
 <div class="row">
-    <div class="col s9 center">
+    <div class="col s12 center">
         <h5>Filtrování vozidel</h5>
 
-        <p>Cena #posuvnik_od_do</p>
-        <div id="slider-range"></div>
-        <p>Rok výroby #posuvnik_od_do</p>
-        <div id="slider-range1"></div>
-        <p>Najeto #posuvnik_od_do</p>
-        <div id="slider-range2"></div>
+        <span id="price0" class="left"></span><span>Cena</span><span id="price1" class="right"></span>
+        <div id="slider-range" class="grey darken-2"></div>
+        <span>Rok výroby</span><span id="rprice0" class="left"></span><span id="rprice1" class="right"></span>
+        <div id="slider-range1" class="grey darken-2"></div>
+        <span>Najeto</span><span id="nprice0" class="left"></span><span id="nprice1" class="right"></span>
+        <div id="slider-range2" class="grey darken-2"></div>
+        <br>
+        <button type="button" class="btn grey darken-2" onclick="use();">
+            Použit filter
+        </button>
     </div>
 </div>
 
@@ -22,8 +26,10 @@
       range: true,
       min: 0,
       max: 500,
-      values: [ 75, 300 ],
+      values: [ 100, 300 ],
       slide: function( event, ui ) {
+          $("#price0").text(ui.values[0]);
+          $("#price1").text(ui.values[1]);
       }});
     $( "#slider-range1" ).slider({
       range: true,
@@ -31,6 +37,8 @@
       max: 500,
       values: [ 75, 300 ],
       slide: function( event, ui ) {
+           $("#rprice0").text(ui.values[0]);
+          $("#rprice1").text(ui.values[1]);
       }});
     $( "#slider-range2" ).slider({
       range: true,
@@ -38,7 +46,11 @@
       max: 500,
       values: [ 75, 300 ],
       slide: function( event, ui ) {
+           $("#nprice0").text(ui.values[0]);
+          $("#nprice1").text(ui.values[1]);
       }});
 
-
+function use() {
+    console.log("neco");
+}
   </script>
