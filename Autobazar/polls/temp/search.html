@@ -3,12 +3,42 @@
 <div class="row">
     <div class="col s9 center">
         <h5>Filtrování vozidel</h5>
-        <p>Cena #posuvnik_od_do</p>
-        <p>Rok výroby #posuvnik_od_do</p>
-        <p>Najeto #posuvnik_od_do</p>
 
+        <p>Cena #posuvnik_od_do</p>
+        <div id="slider-range"></div>
+        <p>Rok výroby #posuvnik_od_do</p>
+        <div id="slider-range1"></div>
+        <p>Najeto #posuvnik_od_do</p>
+        <div id="slider-range2"></div>
     </div>
 </div>
 
 </main>
 {% include "footer.html" %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+      }});
+    $( "#slider-range1" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+      }});
+    $( "#slider-range2" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+      }});
+
+
+  </script>
