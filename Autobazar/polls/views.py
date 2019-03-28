@@ -309,6 +309,12 @@ def add_comment(request):
     return HttpResponse("Bohužel něco se nepovedlo.")
 
 
+def remove_comment(request):
+    comment_id = request.GET.get('comment_id')
+    Comment.objects.filter(id=comment_id).delete()
+    return HttpResponse("ok")
+
+
 def search(request):
     allcars = list(Car.objects.all())
     price = 0
@@ -332,7 +338,6 @@ def search(request):
         datemax = int(request.POST.get('datemax'))
         kmmin = int(request.POST.get('kmmin'))
         kmmax = int(request.POST.get('kmmax'))
-
         for car in cars:
             date = int(re.findall("[0-9]{4}", car.manufacture_date)[0])
             if date < datemin or date > datemax or int(car.price.replace(" ", "")) < pricemin or int(car.price.replace(" ", "")) > pricemax or int(car.killometres.replace(" ", "")) < kmmin or int(car.killometres.replace(" ", "")) > kmmax:

@@ -2,7 +2,7 @@
 <main>
 
     <div class="row">
-        <div class="col offset-s3">
+        <div class="col">
             <span>Uživatelské jméno:</span>
         </div>
         <div class="col s3">
@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col offset-s3">
+        <div class="col ">
             <span>Telefon:</span>
         </div>
         <div class="col s3">
@@ -18,25 +18,40 @@
         </div>
     </div>
     <div class="row">
-        <div class="col offset-s3">
+        <div class="col ">
             <span>Email:</span>
         </div>
         <div class="col s3">
             <span>{{profile.email}}</span>
         </div>
     </div>
+
     <div class="row">
-        <div class="col offset-s3">
-            <span>Komentáře:</span>
+
+        <div class="row" style="padding-left: 10px">
+
+                <p>Komentáře:</p>
+                {% if comment_list %}
+
+            <div class="collection col s9 ">
+                {% for comment in comment_list %}
+
+                <a href="#!" class="collection-item black-text">
+                    {% if user == comment.author or user.is_admin %}<span class="badge"><button type="button"
+                                                                                                class="white-text grey darken-2"
+                                                                                                onclick="remove('{{comment.id}}')">Odstranit</button></span>
+                    {% endif %}
+                    {{comment.author.username}}: {{comment.text}}</a>
+
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
-        {% for comment in comment_list %}
-        <div class="row col s9 offset-s5">
-            <span>{{comment.author.username}}: {{comment.text}}</span>
-        </div>
-        {% endfor %}
+
+
     </div>
     <div class="row">
-        <div class="col offset-s3">
+        <div class="col ">
             {% if user %}
 
             {% csrf_token %}
@@ -55,7 +70,7 @@
             </div>
             {% else %}
             <div class="row">
-                <div class="col offset-s3">
+                <div class="col ">
                     <br>
                     <h5>
                         <a href="login">
@@ -72,15 +87,27 @@
 
 <script type="application/javascript">
     function create_comment() {
-        comment =$('#comment').val();
-            $.ajax({
-                url: window.location.origin + '/add_comment?user_id={{user.id}}&comment=' + comment,
-                type: "GET",
-                success: function (res) {
-                    M.toast({html: res, classes: 'rounded'});
-                    setTimeout(function(){ location.reload();}, 2000);
+        comment = $('#comment').val();
+        $.ajax({
+            url: window.location.origin + '/add_comment?user_id={{profile.id}}&comment=' + comment,
+            type: "GET",
+            success: function (res) {
+                M.toast({html: res, classes: 'rounded'});
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
 
-                }
-            });
+            }
+        });
+    }
+
+    function remove(comment_id) {
+        $.ajax({
+            url: window.location.origin + '/remove_comment?comment_id=' + comment_id,
+            type: "GET",
+            success: function () {
+                location.reload();
+            }
+        });
     }
 </script>

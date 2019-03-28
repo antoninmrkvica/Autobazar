@@ -1,23 +1,23 @@
 {% include "header_nav.html" %}
 {% load poll_extras %}
 <main>
-<div class="row">
-    <div class="col s12 center">
-        <h5>Filtrování vozidel</h5>
-        <span>Cena</span>
-        <span id="price0" class="left"></span><span id="price1" class="right"></span>
-        <div id="slider-range"></div>
-        <span>Rok výroby</span><span id="rprice0" class="left"></span><span id="rprice1" class="right"></span>
-        <div id="slider-range1"></div>
-        <span>Najeto</span><span id="nprice0" class="left"></span><span id="nprice1" class="right"></span>
-        <div id="slider-range2"></div>
-        <br>
-        <button type="button" class="btn grey darken-2" onclick="use();">
-            Použit filter
-        </button>
+    <div class="row">
+        <div class="col s12 center">
+            <h5>Filtrování vozidel</h5>
+            <span>Cena</span>
+            <span id="price0" class="left"></span><span id="price1" class="right"></span>
+            <div id="slider-range"></div>
+            <span>Rok výroby</span><span id="rprice0" class="left"></span><span id="rprice1" class="right"></span>
+            <div id="slider-range1"></div>
+            <span>Najeto</span><span id="nprice0" class="left"></span><span id="nprice1" class="right"></span>
+            <div id="slider-range2"></div>
+            <br>
+            <button type="button" class="btn grey darken-2" onclick="use();">
+                Použit filter
+            </button>
+        </div>
     </div>
-</div>
-<div class="row">
+    <div class="row">
         <div class="col s12">
             {% for car in cars %}
             <div class="col s6">
@@ -39,62 +39,72 @@
             {% endfor %}
         </div>
     </div>
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" id="pricemin" name="pricemin">
+        <input type="hidden" id="pricemax" name="pricemax">
+        <input type="hidden" id="datemin" name="datemin">
+        <input type="hidden" id="datemax" name="datemax">
+        <input type="hidden" id="kmmin" name="kmmin">
+        <input type="hidden" id="kmmax" name="kmmax">
+    </form>
 </main>
 {% include "footer.html" %}
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     console.log("{{cars}}");
     $("#price0").text(0);
-    $("#price1").text(parseInt("{{maxprice}}",10));
+    $("#price1").text(parseInt("{{maxprice}}", 10));
 
-    $("#rprice0").text(parseInt("{{mindate}}",10));
-    $("#rprice1").text(parseInt("{{maxdate}}",10));
+    $("#rprice0").text(parseInt("{{mindate}}", 10));
+    $("#rprice1").text(parseInt("{{maxdate}}", 10));
 
     $("#nprice0").text(0);
-    $("#nprice1").text(parseInt("{{maxkm}}",10));
+    $("#nprice1").text(parseInt("{{maxkm}}", 10));
 
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 0,
-      max: parseInt("{{maxprice}}",10),
-      values: [ 0, parseInt("{{maxprice}}",10) ],
-      slide: function( event, ui ) {
-          $("#price0").text(ui.values[0]);
-          $("#price1").text(ui.values[1]);
-      }});
-    $( "#slider-range1" ).slider({
-      range: true,
-      min: parseInt("{{mindate}}",10),
-      max: parseInt("{{maxdate}}",10),
-      values: [ parseInt("{{mindate}}",10), parseInt("{{maxdate}}",10) ],
-      slide: function( event, ui ) {
-          $("#rprice0").text(ui.values[0]);
-          $("#rprice1").text(ui.values[1]);
-      }});
-    $( "#slider-range2" ).slider({
-      range: true,
-      min: 0,
-      max: parseInt("{{maxkm}}",10),
-      values: [ 0, parseInt("{{maxkm}}",10) ],
-      slide: function( event, ui ) {
-           $("#nprice0").text(ui.values[0]);
-          $("#nprice1").text(ui.values[1]);
-      }});
+    $("#slider-range").slider({
+        range: true,
+        min: 0,
+        max: parseInt("{{maxprice}}", 10),
+        values: [0, parseInt("{{maxprice}}", 10)],
+        slide: function (event, ui) {
+            $("#price0").text(ui.values[0]);
+            $("#price1").text(ui.values[1]);
+        }
+    });
+    $("#slider-range1").slider({
+        range: true,
+        min: parseInt("{{mindate}}", 10),
+        max: parseInt("{{maxdate}}", 10),
+        values: [parseInt("{{mindate}}", 10), parseInt("{{maxdate}}", 10)],
+        slide: function (event, ui) {
+            $("#rprice0").text(ui.values[0]);
+            $("#rprice1").text(ui.values[1]);
+        }
+    });
+    $("#slider-range2").slider({
+        range: true,
+        min: 0,
+        max: parseInt("{{maxkm}}", 10),
+        values: [0, parseInt("{{maxkm}}", 10)],
+        slide: function (event, ui) {
+            $("#nprice0").text(ui.values[0]);
+            $("#nprice1").text(ui.values[1]);
+        }
+    });
 
-function use() {
-    let price = $("#slider-range").slider( "option", "values" );
-    let date = $("#slider-range1").slider( "option", "values" );
-    let km = $("#slider-range2").slider( "option", "values" );
-    $.ajax({
-            url:window.location.origin+'/search',
-            type:"POST",
-            data: {"pricemin":price[0], "pricemax":price[1], "datemin":date[0], "datemax":date[1], "kmmin":km[0], "kmmax":km[1], "csrfmiddlewaretoken":"{{ csrf_token }}"},
-            dataType: 'json',
-            success: function(){
-                console.log('gut');
-                //location.reload();
-            }
-        });
+    function use() {
+        let price = $("#slider-range").slider("option", "values");
+        let date = $("#slider-range1").slider("option", "values");
+        let km = $("#slider-range2").slider("option", "values");
 
-}
-  </script>
+        $("#pricemin").val(price[0]);
+        $("#pricemax").val(price[1]);
+        $("#datemin").val(date[0]);
+        $("#datemax").val(date[1]);
+        $("#kmmin").val(km[0]);
+        $("#kmmax").val(km[1]);
+        $( "form" ).submit();
+
+    }
+</script>
