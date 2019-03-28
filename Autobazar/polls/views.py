@@ -3,6 +3,7 @@ from .models import User, Car, Comment
 import datetime
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
+import re
 
 cars = Car.objects.all()
 
@@ -307,14 +308,28 @@ def add_comment(request):
 
 
 def search(request):
-    allcars = Car.objects.all().last()
+    allcars = Car.objects.all()
+    price = 0
+    killometres = 0
+    mindate = 10000
+    maxdate = 0
+    for car in allcars:
+        if price<int(car.price.replace(" ","")):
+            price = int(car.price.replace(" ",""))
+        if killometres<int(car.killometres.replace(" ","")):
+            killometres = int(car.killometres.replace(" ",""))
+        cardate = int(re.findall("[0-9]{4}",car.manufacture_date)[0])
+        if cardate<mindate:
+            mindate=cardate
+        if cardate>maxdate:
+            maxdate=cardate
     if request.method == "POST":
-        price = request.GET.get('range')
-        date = request.GET.get('range1')
-        killometres = request.GET.get('range2')
+        gprice = request.GET.get('range')
+        gdate = request.GET.get('range1')
+        gkillometres = request.GET.get('range2')
 
         return render(request, "./search.html",
-                      {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars": allcars})
+                      {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars": allcars, "maxprice":price})
     return render(request, "./search.html",
-                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars":allcars})
+                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars":allcars, "maxprice":price, "maxkm":killometres})
 
