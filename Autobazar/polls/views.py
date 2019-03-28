@@ -34,14 +34,14 @@ sorted_dict = {}
 first_start = True
 
 parameters = [["znacka", "Značka"], ["model", "Model"],
-              ["objem", "Objem motoru [L]"],["turbo", "Turbo"], ["vykon", "Výkon [kw]"], ["tachometr", "Tachometr"],
+              ["objem", "Objem motoru [L]"], ["turbo", "Turbo"], ["vykon", "Výkon [kw]"], ["tachometr", "Tachometr"],
               ["cena", "Cena"], ["datum_vyroby", "Datum výroby"], ["fuel_type", "Typ paliva"]]
 
-marks = ['ALFA ROMEO', 'AUDI', 'BMW', 'CHEVROLET', 'CITROËN', 'DACIA', 'FIAT', 'FORD', 'HONDA', 'HYUNDAI', 'JEEP', 'KIA',
+marks = ['ALFA ROMEO', 'AUDI', 'BMW', 'CHEVROLET', 'CITROËN', 'DACIA', 'FIAT', 'FORD', 'HONDA', 'HYUNDAI', 'JEEP',
+         'KIA',
          'LAND ROWER', 'MAZDA', 'MERCEDES-BENZ', 'MITSUBISHI', 'NISSAN', 'OPEL', 'PEUGEOT', 'RENAULT', 'SEAT', 'ŠKODA',
          'SUBARU', 'SUZUKI', 'TOYOTA', 'VOLVO', 'VOLKSWAGEN', 'JINÉ']
 models = ['', '']
-
 
 
 def current_user(user_id):
@@ -96,7 +96,7 @@ def reg(request):
         else:
             new_user = User(username=username, password=passwd, phone=phone, email=email)
             if len(list(User.objects.all())) == 0:
-                new_user.is_admin=True
+                new_user.is_admin = True
             new_user.save()
 
             request.session['user_id'] = new_user.id
@@ -140,7 +140,7 @@ def sell(request):
         return redirect("index")
     return render(request, "./sell.html",
                   {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
-                   "car_param": parameters, "marks":marks})
+                   "car_param": parameters, "marks": marks})
 
 
 def viewmodels(request):
@@ -179,12 +179,12 @@ def edit_car(request):
         if perform != "null":
             perform = str(round(float(perform) * 1.34102209))
         car.update(mark=spec_params[0], model=spec_params[1], engine_capacity=spec_params[2], turbo=spec_params[3],
-                      performance_kw=spec_params[4], performance_hp=perform,
-                      killometres=spec_params[5], price=spec_params[6],
-                      manufacture_date=spec_params[7],
-                      owner=User.objects.filter(id=request.session.get('user_id'))[0],
-                      add_date=datetime.datetime.now(), fuel_type=spec_params[8], description=request.POST.get('popis'),
-                      repair=request.POST.get("opravy"), defects=request.POST.get("poskozeni"))
+                   performance_kw=spec_params[4], performance_hp=perform,
+                   killometres=spec_params[5], price=spec_params[6],
+                   manufacture_date=spec_params[7],
+                   owner=User.objects.filter(id=request.session.get('user_id'))[0],
+                   add_date=datetime.datetime.now(), fuel_type=spec_params[8], description=request.POST.get('popis'),
+                   repair=request.POST.get("opravy"), defects=request.POST.get("poskozeni"))
         imgs = request.FILES.getlist('files')
         car = car[0]
         for img in imgs:
@@ -287,20 +287,21 @@ def buy_car(request):
         "Byl poslán email prodejci s vašimi kontaktními údaji(email, telefon). Vyčkejte až se vám majitel ozve.")
 
 
-
 def profile(request):
     user_id = request.GET.get('user_id')
     user = current_user(user_id)
     comment_list = list(Comment.objects.filter(receiver=user))
     return render(request, "./profile.html",
-                  {"user": current_user(request.session.get('user_id')), "profile":user, "car_list": sorted_dict, "comment_list": comment_list})
+                  {"user": current_user(request.session.get('user_id')), "profile": user, "car_list": sorted_dict,
+                   "comment_list": comment_list})
 
 
 def add_comment(request):
     comment = request.GET.get('comment')
     if comment:
         user_id = request.GET.get('user_id')
-        comm = Comment(author=current_user(request.session.get('user_id')), receiver=User.objects.filter(id=user_id).last(),
+        comm = Comment(author=current_user(request.session.get('user_id')),
+                       receiver=User.objects.filter(id=user_id).last(),
                        text=comment, date=datetime.datetime.now())
         comm.save()
         return HttpResponse("Byl přidán komentář.")
@@ -314,22 +315,32 @@ def search(request):
     mindate = 10000
     maxdate = 0
     for car in allcars:
-        if price<int(car.price.replace(" ","")):
-            price = int(car.price.replace(" ",""))
-        if killometres<int(car.killometres.replace(" ","")):
-            killometres = int(car.killometres.replace(" ",""))
-        cardate = int(re.findall("[0-9]{4}",car.manufacture_date)[0])
-        if cardate<mindate:
-            mindate=cardate
-        if cardate>maxdate:
-            maxdate=cardate
+        if price < int(car.price.replace(" ", "")):
+            price = int(car.price.replace(" ", ""))
+        if killometres < int(car.killometres.replace(" ", "")):
+            killometres = int(car.killometres.replace(" ", ""))
+        cardate = int(re.findall("[0-9]{4}", car.manufacture_date)[0])
+        if cardate < mindate:
+            mindate = cardate
+        if cardate > maxdate:
+            maxdate = cardate
     if request.method == "POST":
-        gprice = request.GET.get('range')
-        gdate = request.GET.get('range1')
-        gkillometres = request.GET.get('range2')
+        pricemin = request.POST.get('pricemin')
+        pricemax = request.POST.get('pricemax')
+        datemin = request.POST.get('datemin')
+        datemax = request.POST.get('datemax')
+        kmmin = request.POST.get('kmmin')
+        kmmax = request.POST.get('kmmax')
 
+        for car in cars:
+            date = int(re.findall("[0-9]{4}", car.manufacture_date)[0])
+            if date < mindate or date > maxdate or car.price < pricemin or car.price > pricemax or car.killometres < kmmin or car.killometres > kmmax:
+                allcars.remove(car)
         return render(request, "./search.html",
-                      {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars": allcars, "maxprice":price})
+                      {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars": allcars,
+                       "maxprice": price, "maxkm": killometres, "mindate":mindate, "maxdate":maxdate
+                       })
     return render(request, "./search.html",
-                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars":allcars, "maxprice":price, "maxkm":killometres})
+                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars": allcars,
+                   "maxprice": price, "maxkm": killometres, "mindate":mindate, "maxdate":maxdate})
 

@@ -3,29 +3,51 @@
 <div class="row">
     <div class="col s12 center">
         <h5>Filtrování vozidel</h5>
-
-        <span id="price0" class="left"></span><span>Cena</span><span id="price1" class="right"></span>
-        <div id="slider-range" class="grey darken-2"></div>
+        <span>Cena</span>
+        <span id="price0" class="left"></span><span id="price1" class="right"></span>
+        <div id="slider-range"></div>
         <span>Rok výroby</span><span id="rprice0" class="left"></span><span id="rprice1" class="right"></span>
-        <div id="slider-range1" class="grey darken-2"></div>
+        <div id="slider-range1"></div>
         <span>Najeto</span><span id="nprice0" class="left"></span><span id="nprice1" class="right"></span>
-        <div id="slider-range2" class="grey darken-2"></div>
+        <div id="slider-range2"></div>
         <br>
         <button type="button" class="btn grey darken-2" onclick="use();">
             Použit filter
         </button>
     </div>
 </div>
-
+<div class="row">
+        <div class="col s12">
+            {% for car in cars %}
+            <div class="col s6">
+                <div class="card large">
+                    <a href="/view?car_id={{car.id}}">
+                        <div class="card-image">
+                            <img src="/static/{{car.images_paths|list_first}}">
+                        </div>
+                        <div class="card-content center-align" style="color: #000000;">
+                            <span class="card-title" style="color:black">{{car.mark.upper}} {{car.model.upper}}</span>
+                            <p>Cena: {{car.price}} Kč</p>
+                            <p>Datum výroby: {{car.manufacture_date}}</p>
+                            <p>Najeto kilometrů: {{car.killometres}} km</p>
+                            <p>Objem motoru: {{car.engine_capacity}} L</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </main>
 {% include "footer.html" %}
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+    console.log("{{cars}}");
     $("#price0").text(0);
     $("#price1").text(parseInt("{{maxprice}}",10));
 
-    $("#rprice0").text();
-    $("#rprice1").text();
+    $("#rprice0").text(parseInt("{{mindate}}",10));
+    $("#rprice1").text(parseInt("{{maxdate}}",10));
 
     $("#nprice0").text(0);
     $("#nprice1").text(parseInt("{{maxkm}}",10));
@@ -41,9 +63,9 @@
       }});
     $( "#slider-range1" ).slider({
       range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
+      min: parseInt("{{mindate}}",10),
+      max: parseInt("{{maxdate}}",10),
+      values: [ parseInt("{{mindate}}",10), parseInt("{{maxdate}}",10) ],
       slide: function( event, ui ) {
           $("#rprice0").text(ui.values[0]);
           $("#rprice1").text(ui.values[1]);
@@ -59,6 +81,16 @@
       }});
 
 function use() {
-    console.log("neco");
+    let price = $("#slider-range").slider( "option", "values" );
+    let date = $("#slider-range1").slider( "option", "values" );
+    let km = $("#slider-range2").slider( "option", "values" );
+    $.ajax({
+            url:window.location.origin+'/search',
+            type:"POST",
+
+            data: {"pricemin":price[0], "pricemax":price[1], "datemin":date[0], "datemin":date[1], "kmmin":km[0], "kmmazx":km[1], "csrfmiddlewaretoken":"{{ csrf_token }}"},
+            dataType: 'json'
+        });
+
 }
   </script>
