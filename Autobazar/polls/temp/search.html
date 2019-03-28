@@ -1,4 +1,5 @@
 {% include "header_nav.html" %}
+{% load poll_extras %}
 <main>
 <div class="row">
     <div class="col s12 center">
@@ -87,9 +88,12 @@ function use() {
     $.ajax({
             url:window.location.origin+'/search',
             type:"POST",
-
-            data: {"pricemin":price[0], "pricemax":price[1], "datemin":date[0], "datemin":date[1], "kmmin":km[0], "kmmazx":km[1], "csrfmiddlewaretoken":"{{ csrf_token }}"},
-            dataType: 'json'
+            data: {"pricemin":price[0], "pricemax":price[1], "datemin":date[0], "datemax":date[1], "kmmin":km[0], "kmmax":km[1], "csrfmiddlewaretoken":"{{ csrf_token }}"},
+            dataType: 'json',
+            success: function(){
+                console.log('gut');
+                //location.reload();
+            }
         });
 
 }

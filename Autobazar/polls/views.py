@@ -309,7 +309,7 @@ def add_comment(request):
 
 
 def search(request):
-    allcars = Car.objects.all()
+    allcars = list(Car.objects.all())
     price = 0
     killometres = 0
     mindate = 10000
@@ -325,16 +325,16 @@ def search(request):
         if cardate > maxdate:
             maxdate = cardate
     if request.method == "POST":
-        pricemin = request.POST.get('pricemin')
-        pricemax = request.POST.get('pricemax')
-        datemin = request.POST.get('datemin')
-        datemax = request.POST.get('datemax')
-        kmmin = request.POST.get('kmmin')
-        kmmax = request.POST.get('kmmax')
+        pricemin = int(request.POST.get('pricemin'))
+        pricemax = int(request.POST.get('pricemax'))
+        datemin = int(request.POST.get('datemin'))
+        datemax = int(request.POST.get('datemax'))
+        kmmin = int(request.POST.get('kmmin'))
+        kmmax = int(request.POST.get('kmmax'))
 
         for car in cars:
             date = int(re.findall("[0-9]{4}", car.manufacture_date)[0])
-            if date < mindate or date > maxdate or car.price < pricemin or car.price > pricemax or car.killometres < kmmin or car.killometres > kmmax:
+            if date < datemin or date > datemax or int(car.price.replace(" ", "")) < pricemin or int(car.price.replace(" ", "")) > pricemax or int(car.killometres.replace(" ", "")) < kmmin or int(car.killometres.replace(" ", "")) > kmmax:
                 allcars.remove(car)
         return render(request, "./search.html",
                       {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars": allcars,
