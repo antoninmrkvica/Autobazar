@@ -34,8 +34,8 @@ sorted_dict = {}
 first_start = True
 
 parameters = [["znacka", "Značka"], ["model", "Model"],
-              ["objem", "Objem motoru [L]"], ["turbo", "Turbo"], ["vykon", "Výkon [kw]"], ["tachometr", "Tachometr"],
-              ["cena", "Cena"], ["datum_vyroby", "Datum výroby"], ["fuel_type", "Typ paliva"]]
+              ["objem", "Objem motoru [L]"], ["turbo", "Turbo"], ["vykon", "Výkon [kW]"], ["tachometr", "Tachometr [km]"],
+              ["cena", "Cena [Kč]"], ["datum_vyroby", "Rok výroby"], ["fuel_type", "Typ paliva"]]
 
 marks = ['ALFA ROMEO', 'AUDI', 'BMW', 'CHEVROLET', 'CITROËN', 'DACIA', 'FIAT', 'FORD', 'HONDA', 'HYUNDAI', 'JEEP',
          'KIA',
