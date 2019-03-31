@@ -42,42 +42,35 @@
                 <p class="col s3 offset-s1" style="color: red">Zatím žádné!</p>
                 {% endif %}
             </div>
-
         </div>
-        <div class="row">
-            <div class="col">
-                {% if user %}
+        <div class="row pad10">
+            {% if user %}
+            {% csrf_token %}
+            <div class="col s6">
+                <br>
 
-                {% csrf_token %}
-                <div class="col s6">
-                    <br>
-                    <button class="btn waves-effect waves-light grey darken-2" type="button" onclick="create_comment()">
-                        Odeslat
-                        <i class="material-icons right">send</i>
-                    </button>
+
+                <div class="input-field">
+                    <textarea id="comment" class="materialize-textarea" name="comment"></textarea>
+                    <label for="comment">Komentář</label>
                 </div>
-                <div class="col s6">
-                    <div class="input-field">
-                        <textarea id="comment" class="materialize-textarea" name="comment"></textarea>
-                        <label for="comment">Komentář</label>
-                    </div>
-                </div>
-                {% else %}
-                <div class="row">
-                    <div class="col">
-                        <br>
-                        <h5>
-                            <a href="login">
-                                Pokud chceš přidávat komentáře, musíš se příhlásit.
-                            </a>
-                        </h5>
-                    </div>
-                </div>
-                {% endif %}
+                <button class="btn waves-effect waves-light grey darken-2" type="button" onclick="create_comment()">
+                    Odeslat
+                    <i class="material-icons right">send</i>
+                </button>
             </div>
+            {% else %}
+                <div class="col offset-s1">
+                    <br>
+                    <h5>
+                        <a href="login">
+                            Pokud chceš přidávat komentáře, musíš se příhlásit.
+                        </a>
+                    </h5>
+                </div>
+            {% endif %}
         </div>
     </div>
-
 </main>
 {% include "footer.html" %}
 
