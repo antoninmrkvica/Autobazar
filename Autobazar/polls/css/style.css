@@ -24,5 +24,17 @@ main {
     color: white;
 }
 
+nav ul li:hover {
+   background-color: #C0BFBF;
 
+}
 
+.sidenav li>a{
+    color: grey;
+}
+.sidenav li:hover{
+    background-color: white;
+}
+.sidenav a:hover{
+    background-color: #E5E5E5;
+}

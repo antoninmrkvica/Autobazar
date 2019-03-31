@@ -34,17 +34,17 @@
         </ul>
         <div class="nav-wrapper black">
             <ul class="left hide-on-med-and-down">
-                <li><img class="rotateimg" src="static/temp/images/wheel.png" width="60"/></li>
-                <li><a href="/" id="logo">Autobazar</a></li>
+                <!--<li><img class="rotateimg" src="static/temp/images/wheel.png" width="60"/></li>-->
+                <li><a href="/" id="logo" style="padding-left: 75px">Autobazar</a></li>
                 <li><a href="/sell">Chci prodat auto</a></li>
-                <li><a href="/search"><i class="material-icons">search</i></a></li>
+                <li><a href="/search"><i class="material-icons left">search</i>Filtrovat vozidla</a></li>
             </ul>
             <ul class="right hide-on-med-and-down">
                 {% if not user %}
                 <li><a href="/login">Login</a></li>
                 <li><a href="/reg">Register</a></li>
                 {% else %}
-                <li><a href="/acc" class=" right-align">{{ user.username }}</a></li>
+                <li><a href="/acc"><i class="material-icons left">settings_applications</i>{{ user.username }}</a></li>
                 <li><a href="/logout" class=" right-align">Logout</a></li>
                 {% endif %}
 
@@ -53,16 +53,16 @@
     </nav>
 
 </div>
-<ul id="slide-out" class="sidenav grey darken-3 grey-text ">
+<ul id="slide-out" class="sidenav grey darken-3 grey-text">
 
     <li><a href="/sell">Chci prodat auto</a></li>
-    <li><a href="/search"><i class="material-icons">search</i></a></li>
+    <li><a href="/search"><i class="material-icons left">search</i>Filtrovat vozidla</a></li>
 
     {% if not user %}
     <li><a href="/login">Login</a></li>
     <li><a href="/reg">Register</a></li>
     {% else %}
-    <li><a href="/acc">Uživatel: {{ user.username }}</a></li>
+    <li><a href="/acc"><i class="material-icons left">settings_applications</i>{{ user.username }}</a></li>
     <li><a href="/logout">Logout</a></li>
     {% endif %}
 
@@ -81,7 +81,9 @@
         {% endfor %}
     </ul>
 </ul>
-<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+<div>
+    <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+</div>
 <div class="row"></div>
 
 

@@ -1,87 +1,83 @@
 {% include "header_nav.html" %}
 <main>
+    <div class="row col s12">
+        <div class="row pad10">
+            <div class="col s6">
+                <span>Profil uživatele:</span>
+                <span>{{profile.username}}</span>
+            </div>
+        </div>
+        <hr>
+        <div class="row col s3 offset-s4 center">
 
-    <div class="row">
-        <div class="col">
-            <span>Uživatelské jméno:</span>
-        </div>
-        <div class="col s3">
-            <span>{{profile.username}}</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col ">
             <span>Telefon:</span>
-        </div>
-        <div class="col s3">
+
             <span>{{profile.phone}}</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col ">
-            <span>Email:</span>
-        </div>
-        <div class="col s3">
+            <hr>
+            <span>E-mail:</span>
+
             <span>{{profile.email}}</span>
+
         </div>
-    </div>
 
-    <div class="row">
-
-        <div class="row" style="padding-left: 10px">
-
-                <p>Komentáře:</p>
+        <div class="row">
+            <div class="col s12">
+                <hr>
+                <p class="pad10">Komentáře:</p>
                 {% if comment_list %}
 
-            <div class="collection col s9 ">
-                {% for comment in comment_list %}
+                <div class="collection col s9 ">
+                    {% for comment in comment_list %}
 
-                <a href="#!" class="collection-item black-text">
-                    {% if user == comment.author or user.is_admin %}<span class="badge"><button type="button"
-                                                                                                class="white-text grey darken-2"
-                                                                                                onclick="remove('{{comment.id}}')">Odstranit</button></span>
-                    {% endif %}
-                    {{comment.author.username}}: {{comment.text}}</a>
+                    <a href="#" class="collection-item black-text">
+                        {% if user == comment.author or user.is_admin %}<span class="badge"><button type="button"
+                                                                                                    class="white-text grey darken-2"
+                                                                                                    onclick="remove('{{comment.id}}')">Odstranit</button></span>
+                        {% endif %}
+                        {{comment.author.username}}: {{comment.text}}</a>
 
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-
-
-    </div>
-    <div class="row">
-        <div class="col ">
-            {% if user %}
-
-            {% csrf_token %}
-            <div class="col s6">
-                <br>
-                <button class="btn waves-effect waves-light grey darken-2" type="button" onclick="create_comment()">
-                    Odeslat
-                    <i class="material-icons right">send</i>
-                </button>
-            </div>
-            <div class="col s6">
-                <div class="input-field">
-                    <textarea id="comment" class="materialize-textarea" name="comment"></textarea>
-                    <label for="comment">Komentář</label>
+                    {% endfor %}
                 </div>
+                {% else %}
+                <p class="col s3 offset-s1" style="color: red">Zatím žádné!</p>
+                {% endif %}
             </div>
-            {% else %}
-            <div class="row">
-                <div class="col ">
+
+        </div>
+        <div class="row">
+            <div class="col">
+                {% if user %}
+
+                {% csrf_token %}
+                <div class="col s6">
                     <br>
-                    <h5>
-                        <a href="login">
-                            Pokud chceš přidávat komentáře, musíš se příhlásit.
-                        </a>
-                    </h5>
+                    <button class="btn waves-effect waves-light grey darken-2" type="button" onclick="create_comment()">
+                        Odeslat
+                        <i class="material-icons right">send</i>
+                    </button>
                 </div>
+                <div class="col s6">
+                    <div class="input-field">
+                        <textarea id="comment" class="materialize-textarea" name="comment"></textarea>
+                        <label for="comment">Komentář</label>
+                    </div>
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="col">
+                        <br>
+                        <h5>
+                            <a href="login">
+                                Pokud chceš přidávat komentáře, musíš se příhlásit.
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
     </div>
+
 </main>
 {% include "footer.html" %}
 
