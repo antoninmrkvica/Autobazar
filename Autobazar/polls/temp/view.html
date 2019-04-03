@@ -6,7 +6,8 @@
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large waves-effect waves-light red" href="/edit_car?car_id={{car.id}}">Edit</a>
 
-        <a class="btn-floating btn-large waves-effect waves-light red" href="/delete_car?car_id={{car.id}}"><i class="material-icons">delete</i></a>
+        <a class="btn-floating btn-large waves-effect waves-light red" href="/delete_car?car_id={{car.id}}"><i
+                class="material-icons">delete</i></a>
     </div>
     {% endif %}
     <div class="row">
@@ -24,37 +25,49 @@
         <div class="row">
             <div class="col s12">
                 <div class="col s6">
-                <h5>{{car.mark.upper}} {{car.model.upper}} {{car.motorization}}</h5>
+                    <h5>{{car.mark.upper}} {{car.model.upper}} {{car.motorization}}</h5>
                 </div>
                 <div class="col s6">
-                <span class="right">Prodávajicí: <a href="/profile?user_id={{car.owner.id}}" class="btn grey darken-2">{{car.owner.username}}</a></span>
+                    <span class="right">Prodávajicí: <a href="/profile?user_id={{car.owner.id}}"
+                                                        class="btn grey darken-2">{{car.owner.username}}</a></span>
                 </div>
-                <div class="row">
-                <div class="col s3">
-                <p>Značka: {{car.mark.upper}}</p>
-                <p>Model: {{car.model.upper}}</p>
-                <p>Objem motoru: {{car.engine_capacity}} L</p>
+            </div>
+            <div class="row pad10">
+                <div class="col s4">
+                    <p>Značka: {{car.mark.upper}}</p>
+
+                    <p>Model: {{car.model.upper}}</p>
+
+                    <p>Objem motoru: {{car.engine_capacity}} L</p>
                 </div>
-                <div class="col s3">
-                <p>Turbo: {{car.turbo}}</p>
-                <p>Typ Paliva: {{car.fuel_type}}</p>
-                <p>Výkon: {{car.performance_kw}} kw ({{car.performance_hp}} HP)</p>
+                <div class="col s4">
+                    <p>Turbo: {{car.turbo}}</p>
+
+                    <p>Typ Paliva: {{car.fuel_type}}</p>
+
+                    <p>Výkon: {{car.performance_kw}} kw ({{car.performance_hp}} HP)</p>
                 </div>
-                <div class="col s3">
-                <p>Datum výroby: {{car.manufacture_date}}</p>
-                <p>Najeto: {{car.killometres}} km</p>
-                <p>Cena: {{car.price}} Kč</p>
+                <div class="col s4">
+                    <p>Datum výroby: {{car.manufacture_date}}</p>
+
+                    <p>Najeto: {{car.killometres}} km</p>
+
+                    <p>Cena: {{car.price}} Kč</p>
                 </div>
-                </div>
+            </div>
+            <div class="pad10">
                 <p>Popis: {{car.description}}</p>
+
                 <p>Závady: {{car.defects}}</p>
+
                 <p>Opravy: {{car.repair}}</p>
             </div>
         </div>
+    </div>
 
-        <div class="col s12">
-            <button type="button" class="btn grey darken-2 pulse" onclick="buy_car();">Chci koupit tohle auto</button>
-        </div>
+    <div class="col s12">
+        <button type="button" class="btn grey darken-2 pulse" onclick="buy_car();">Chci koupit tohle auto</button>
+    </div>
     </div>
 </main>
 
@@ -63,9 +76,9 @@
 <script type="application/javascript">
     function buy_car() {
         $.ajax({
-            url:window.location.origin+'/buy_car?car_id='+"{{ car.id }}"+"&url="+window.location.href,
-            type:"GET",
-            success: function(result){
+            url: window.location.origin + '/buy_car?car_id=' + "{{ car.id }}" + "&url=" + window.location.href,
+            type: "GET",
+            success: function (result) {
                 M.toast({html: result, classes: 'rounded'});
             }
         });
