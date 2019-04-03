@@ -23,19 +23,29 @@
         </div>
         <div class="row">
             <div class="col s12">
+                <div class="col s6">
                 <h5>{{car.mark.upper}} {{car.model.upper}} {{car.motorization}}</h5>
-                <hr>
-                Prodávajicí: <a href="/profile?user_id={{car.owner.id}}" class="btn grey darken-2">{{car.owner.username}}</a>
+                </div>
+                <div class="col s6">
+                <span class="right">Prodávajicí: <a href="/profile?user_id={{car.owner.id}}" class="btn grey darken-2">{{car.owner.username}}</a></span>
+                </div>
+                <div class="row">
+                <div class="col s3">
                 <p>Značka: {{car.mark.upper}}</p>
                 <p>Model: {{car.model.upper}}</p>
                 <p>Objem motoru: {{car.engine_capacity}} L</p>
+                </div>
+                <div class="col s3">
                 <p>Turbo: {{car.turbo}}</p>
                 <p>Typ Paliva: {{car.fuel_type}}</p>
                 <p>Výkon: {{car.performance_kw}} kw ({{car.performance_hp}} HP)</p>
+                </div>
+                <div class="col s3">
                 <p>Datum výroby: {{car.manufacture_date}}</p>
                 <p>Najeto: {{car.killometres}} km</p>
                 <p>Cena: {{car.price}} Kč</p>
-                <br>
+                </div>
+                </div>
                 <p>Popis: {{car.description}}</p>
                 <p>Závady: {{car.defects}}</p>
                 <p>Opravy: {{car.repair}}</p>

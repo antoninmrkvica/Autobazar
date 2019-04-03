@@ -1,6 +1,6 @@
 {% include "header_nav.html" %}
 <main>
-
+    <div class="row">
         <div class="row">
             <div class="col s6">
                 <span>Profil uživatele:</span>
@@ -21,6 +21,7 @@
         </div>
 
         <div class="row">
+
             <div class="col s12">
                 <hr>
                 <p>Komentáře:</p>
@@ -32,7 +33,9 @@
                     <a href="#" class="collection-item black-text">
                         {% if user == comment.author or user.is_admin %}<span class="badge"><button type="button"
                                                                                                     class="white-text grey darken-2"
-                                                                                                    onclick="remove('{{comment.id}}')">Odstranit</button></span>
+                                                                                                    onclick="remove('{{comment.id}}')">
+                        Odstranit
+                    </button></span>
                         {% endif %}
                         {{comment.author.username}}: {{comment.text}}</a>
 
@@ -60,16 +63,17 @@
                 </button>
             </div>
             {% else %}
-                <div class="col offset-s1">
-                    <br>
-                    <h5>
-                        <a href="login">
-                            Pokud chceš přidávat komentáře, musíš se příhlásit.
-                        </a>
-                    </h5>
-                </div>
+            <div class="col offset-s1">
+                <br>
+                <h5>
+                    <a href="login">
+                        Pokud chceš přidávat komentáře, musíš se příhlásit.
+                    </a>
+                </h5>
+            </div>
             {% endif %}
         </div>
+    </div>
 </main>
 {% include "footer.html" %}
 
