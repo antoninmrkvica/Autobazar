@@ -16,8 +16,8 @@
 <div class="navbar-fixed">
     <nav class="top-nav">
 
-        <ul id="slide-out1" class="sidenav sidenav-fixed grey darken-3 grey-text">
-            <a href="/"><h5 class="center-align grey-text">Prodávaná vozidla</h5></a>
+        <ul id="slide-out1" class="sidenav sidenav-fixed grey darken-3">
+            <h5 class="center-align grey-text">Prodávaná vozidla</h5>
             <hr>
             <ul class="collapsible">
                 {% for cars_mark, values in car_list.items %}
@@ -25,7 +25,7 @@
                     <div class="collapsible-header">{{cars_mark}}</div>
                     {% for carmodel in values %}
                     <div class="collapsible-body grey darken-3 grey-text"><a
-                            href="/viewmodels?model={{carmodel}}&mark={{cars_mark}}" class="pad10 grey-text">{{carmodel}}</a>
+                            href="/viewmodels?model={{carmodel}}&mark={{cars_mark}}" style="margin-left: 20px">{{carmodel}}</a>
                     </div>
                     {% endfor %}
                 </li>
@@ -77,7 +77,7 @@
             <div class="collapsible-header">{{cars_mark}}</div>
             {% for carmodel in values %}
             <div class="collapsible-body grey darken-3 grey-text"><a
-                    href="/viewmodels?model={{carmodel}}&mark={{cars_mark}}" class="pad10 grey-text">{{carmodel}}</a>
+                    href="/viewmodels?model={{carmodel}}&mark={{cars_mark}}" class="grey-text" style="margin-left: 10px">{{carmodel}}</a>
             </div>
             {% endfor %}
         </li>

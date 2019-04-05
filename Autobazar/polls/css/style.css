@@ -28,13 +28,20 @@ nav ul li:hover {
    background-color: #C0BFBF;
 
 }
+.sidenav{
+    color: #EEEDED;
+
+}
 
 .sidenav li>a{
     color: grey;
 }
+.sidenav li:focus{
+    background-color: #C4C2C2;
+}
 .sidenav li:hover{
-    background-color: white;
+    background-color: #C4C2C2;
 }
 .sidenav a:hover{
-    background-color: #E5E5E5;
+    background-color: grey;
 }
