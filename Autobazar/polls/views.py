@@ -242,8 +242,10 @@ def change_password(request):
 
 
 def acc(request):
+    user = current_user(request.session.get('user_id'))
+    comment_list = list(Comment.objects.filter(receiver=user))
     return render(request, "./acc.html",
-                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict})
+                  {"user": user, "car_list": sorted_dict, "comment_list": comment_list})
 
 
 def send_password(request):

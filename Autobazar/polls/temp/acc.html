@@ -1,10 +1,11 @@
 {% include "header_nav.html" %}
 <main>
     <h5 class="pad10">Profil</h5>
+
     <div class="row">
         <hr>
 
-        <div class="col s4 offset-s4 center" >
+        <div class="col s4 offset-s4 center">
             <span>Uživatelské jméno:</span>
             <span>{{user.username}}</span>
             <hr>
@@ -20,6 +21,33 @@
     <div class="row">
         <div class="col s12 center-align">
             <a href="change_password" class="btn grey darken-2">Změnit heslo</a>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col s12">
+
+            <p>Komentáře:</p>
+            {% if comment_list %}
+
+            <div class="collection col s9 ">
+                {% for comment in comment_list %}
+
+                <a href="#" class="collection-item black-text">
+                    {% if user == comment.author or user.is_admin %}<span class="badge"><button type="button"
+                                                                                                class="white-text grey darken-2"
+                                                                                                onclick="remove('{{comment.id}}')">
+                    Odstranit
+                </button></span>
+                    {% endif %}
+                    {{comment.author.username}}: {{comment.text}}</a>
+
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="col s3 offset-s1" style="color: red">Zatím žádné!</p>
+            {% endif %}
         </div>
     </div>
 </main>
