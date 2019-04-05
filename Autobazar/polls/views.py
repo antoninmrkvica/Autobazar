@@ -349,11 +349,15 @@ def search(request):
                 allcars.remove(car)
         return render(request, "./search.html",
                       {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars": allcars,
-                       "maxprice": price, "maxkm": killometres, "mindate": mindate, "maxdate": maxdate
+                       "maxprice": price, "maxkm": killometres, "mindate": mindate, "maxdate": maxdate,
+                       "omaxprice": pricemax, "ominprice": pricemin, "ominkm": kmmin, "omaxkm": kmmax,
+                       "omindate": datemin, "omaxdate": datemax
                        })
     return render(request, "./search.html",
                   {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars": allcars,
-                   "maxprice": price, "maxkm": killometres, "mindate": mindate, "maxdate": maxdate})
+                   "maxprice": price, "maxkm": killometres, "mindate": mindate, "maxdate": maxdate,
+                       "omaxprice": price, "ominprice": 0, "ominkm": 0, "omaxkm": killometres,
+                       "omindate": mindate, "omaxdate": maxdate})
 
 
 def settings(request):
