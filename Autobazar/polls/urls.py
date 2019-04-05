@@ -21,4 +21,6 @@ urlpatterns = [
     path('buy_car', views.buy_car, name='buy_car'),
     path('add_comment', views.add_comment, name='add_comment'),
     path('remove_comment', views.remove_comment, name='remove_comment'),
+    path('settings', views.settings, name='settings'),
+
 ]

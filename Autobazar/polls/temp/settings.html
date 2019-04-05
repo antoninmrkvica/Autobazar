@@ -1,0 +1,24 @@
+{% include "header_nav.html" %}
+{% load poll_extras %}
+<main>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col s12">
+                {% for nuser in users %}
+                <div class="col s12">
+
+                    <label>
+                        <input name="{{ nuser.id }}" type="checkbox"{%if nuser.is_admin %} checked="checked"{%endif %} />
+                        <span>{{nuser.username}}</span>
+                        </label>
+                </div>
+                {% endfor %}
+                <button class="btn waves-effect waves-light grey darken-2" type="submit" name="action">Uložit nastavení práv
+                        <i class="material-icons right">send</i>
+                    </button>
+            </div>
+        </div>
+    </form>
+</main>
+{% include "footer.html" %}

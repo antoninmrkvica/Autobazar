@@ -34,7 +34,8 @@ sorted_dict = {}
 first_start = True
 
 parameters = [["znacka", "Značka"], ["model", "Model"],
-              ["objem", "Objem motoru [L]"], ["turbo", "Turbo"], ["vykon", "Výkon [kW]"], ["tachometr", "Tachometr [km]"],
+              ["objem", "Objem motoru [L]"], ["turbo", "Turbo"], ["vykon", "Výkon [kW]"],
+              ["tachometr", "Tachometr [km]"],
               ["cena", "Cena [Kč]"], ["datum_vyroby", "Rok výroby"], ["fuel_type", "Typ paliva"]]
 
 marks = ['ALFA ROMEO', 'AUDI', 'BMW', 'CHEVROLET', 'CITROËN', 'DACIA', 'FIAT', 'FORD', 'HONDA', 'HYUNDAI', 'JEEP',
@@ -342,13 +343,31 @@ def search(request):
         kmmax = int(request.POST.get('kmmax'))
         for car in cars:
             date = int(re.findall("[0-9]{4}", car.manufacture_date)[0])
-            if date < datemin or date > datemax or int(car.price.replace(" ", "")) < pricemin or int(car.price.replace(" ", "")) > pricemax or int(car.killometres.replace(" ", "")) < kmmin or int(car.killometres.replace(" ", "")) > kmmax:
+            if date < datemin or date > datemax or int(car.price.replace(" ", "")) < pricemin or int(
+                    car.price.replace(" ", "")) > pricemax or int(car.killometres.replace(" ", "")) < kmmin or int(
+                    car.killometres.replace(" ", "")) > kmmax:
                 allcars.remove(car)
         return render(request, "./search.html",
                       {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars": allcars,
-                       "maxprice": price, "maxkm": killometres, "mindate":mindate, "maxdate":maxdate
+                       "maxprice": price, "maxkm": killometres, "mindate": mindate, "maxdate": maxdate
                        })
     return render(request, "./search.html",
                   {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict, "cars": allcars,
-                   "maxprice": price, "maxkm": killometres, "mindate":mindate, "maxdate":maxdate})
+                   "maxprice": price, "maxkm": killometres, "mindate": mindate, "maxdate": maxdate})
 
+
+def settings(request):
+    if request.method == "POST":
+        allusers = User.objects.all()
+        for user in allusers:
+            state = request.POST.get(str(user.id))
+            upuser = User.objects.filter(id=user.id)
+            if state == "on":
+                upuser.update(is_admin=True)
+            elif state == None:
+                upuser.update(is_admin=False)
+            else:
+                print("chyba")
+    return render(request, "./settings.html",
+                  {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
+                   "users": list(User.objects.all())})

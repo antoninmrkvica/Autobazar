@@ -44,6 +44,9 @@
                 <li><a href="/login">Login</a></li>
                 <li><a href="/reg">Register</a></li>
                 {% else %}
+                {% if user.is_admin %}
+                    <li><a href="/settings" class="right-align">Správa uživatelů</a></li>
+                {% endif %}
                 <li><a href="/acc"><i class="material-icons left">settings_applications</i>{{ user.username }}</a></li>
                 <li><a href="/logout" class=" right-align">Logout</a></li>
                 {% endif %}
