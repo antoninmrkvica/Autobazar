@@ -214,7 +214,6 @@ def remove_image(request):
 def delete_car(request):
     id = request.GET.get('car_id')
     car = Car.objects.filter(id=id)
-    print(car)
     current_user = User.objects.filter(id=request.session.get('user_id'))[0]
     if current_user == car.last().owner or current_user.is_admin:
         car.delete()

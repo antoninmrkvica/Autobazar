@@ -79,7 +79,7 @@
     car_images = {{car.get_images | safe}};
     $.each(car_images, function (index, image) {
         $('#images_old')
-            .append($('<div class="col s4" id="img'+index+'"></div>')
+            .append($('<div class="col m1" id="img'+index+'"></div>')
                 .append($('<button type="button" class="btn red" onclick="remove('+"'"+image+"'"+')">Remove</button>'))
                 .append($('<img/>').attr('src', window.location.origin + '/static/' + image).attr('width', '300')));
 
