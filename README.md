@@ -1,6 +1,6 @@
 # Autobazar
 
-##Install
+## Install
 
 1. git clone https://github.com/antoninmrkvica/Autobazar.git
 
