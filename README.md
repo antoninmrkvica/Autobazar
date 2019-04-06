@@ -7,3 +7,5 @@
 1. cd Autobazar/Autobazar
 
 1. python3 manage.py migrate --run-syncdb
+
+1. python3 manage.py runserver [IP address:Port]
