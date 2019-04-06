@@ -386,4 +386,5 @@ def remove_user(request):
         user_id = request.GET.get("user_id")
         user = User.objects.filter(id=user_id)
         user.delete()
+        sidenav_gener()
     return redirect("/settings")

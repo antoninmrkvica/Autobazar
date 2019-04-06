@@ -1,6 +1,8 @@
 {% include "header_nav.html" %}
 {% load poll_extras %}
 <main>
+    <h5 class="pad10">Správa užívatelů</h5>
+    <hr>
     <form method="post">
         {% csrf_token %}
         <div class="row">
@@ -16,7 +18,7 @@
                 {% for nuser in users %}
                 <div class="row col s12">
                     <div class="col s2">
-                        <a href="/profile?user_id={{nuser.id}}">{{nuser.username}}</a>
+                        <a href="/profile?user_id={{nuser.id}}" style="color: black; text-decoration: underline">{{nuser.username}}</a>
                     </div>
                     <div class="col s3">
                         <label>

@@ -1,11 +1,13 @@
 {% include "header_nav.html" %}
 <main>
     {% if user %}
+    <h5 class="pad10">Prodat auto</h5>
+    <hr>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
             <div class="row col">
-                <div class="input-field col s3">
+                <div class="input-field col s6 m3">
                     <select class="zn">
                         <option value="" disabled selected>Zvol značku auta</option>
                         {% for mark in marks %}

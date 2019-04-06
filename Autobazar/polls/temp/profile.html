@@ -1,15 +1,12 @@
 {% include "header_nav.html" %}
 <main>
+    <h5 class="pad10">Profil</h5>
     <div class="row">
-        <div class="row">
-            <div class="col s6">
-                <span>Profil uživatele:</span>
-                <span>{{profile.username}}</span>
-            </div>
-        </div>
         <hr>
-        <div class="row col s3 offset-s4 center">
-
+        <div class="row col s4 offset-s4 center">
+            <span>Uživatelské jméno:</span>
+            <span>{{profile.username}}</span>
+            <hr>
             <span>Telefon:</span>
 
             <span>{{profile.phone}}</span>
@@ -19,11 +16,13 @@
             <span>{{profile.email}}</span>
 
         </div>
-
+    </div>
+    <hr>
+    <div class="row pad10">
         <div class="row">
 
             <div class="col s12">
-                <hr>
+
                 <p>Komentáře:</p>
                 {% if comment_list %}
 
@@ -47,7 +46,11 @@
             </div>
         </div>
         <div class="row">
+            {% if profile != user %}
             {% if user %}
+
+
+
             {% csrf_token %}
             <div class="col s6">
                 <br>
@@ -71,6 +74,7 @@
                     </a>
                 </h5>
             </div>
+            {% endif %}
             {% endif %}
         </div>
     </div>

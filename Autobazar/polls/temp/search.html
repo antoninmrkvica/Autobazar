@@ -2,15 +2,52 @@
 {% load poll_extras %}
 <main>
     <div class="row">
+        <h5 class="pad10">Filtrování vozidel</h5>
+        <hr>
         <div class="col s12 center">
-            <h5>Filtrování vozidel</h5>
-            <span>Cena</span>
-            <span id="price0" class="left"></span><span id="price1" class="right"></span>
-            <div id="slider-range"></div>
-            <span>Rok výroby</span><span id="rprice0" class="left"></span><span id="rprice1" class="right"></span>
-            <div id="slider-range1"></div>
-            <span>Najeto</span><span id="nprice0" class="left"></span><span id="nprice1" class="right"></span>
-            <div id="slider-range2"></div>
+
+
+            <div class="col s4">
+                <span id="price0" class="left"></span>
+            </div>
+            <div class="col s4">
+                <span class="center-align">Cena</span>
+            </div>
+            <div class="col s4">
+                <span id="price1" class="right"></span>
+            </div>
+            <div class="row col s12">
+                <div id="slider-range"></div>
+            </div>
+
+
+            <div class="col s4">
+                <span id="rprice0" class="left"></span>
+            </div>
+            <div class="col s4">
+                <span>Rok výroby</span>
+            </div>
+            <div class="col s4">
+                <span id="rprice1" class="right"></span>
+            </div>
+            <div class="row col s12">
+                <div id="slider-range1"></div>
+            </div>
+
+
+            <div class="col s4">
+                <span id="nprice0" class="left"></span>
+            </div>
+            <div class="col s4">
+                <span>Najeto</span>
+            </div>
+            <div class="col s4">
+                <span id="nprice1" class="right"></span>
+            </div>
+            <div class="row col s12">
+                <div id="slider-range2"></div>
+            </div>
+
             <br>
             <button type="button" class="btn grey darken-2" onclick="use();">
                 Použit filter
@@ -53,24 +90,24 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 
-    $("#price0").text(parseInt("{{ominprice}}", 10));
-    $("#price1").text(parseInt("{{omaxprice}}", 10));
+    $("#price0").text(parseInt("{{ominprice}}", 10).toLocaleString());
+    $("#price1").text(parseInt("{{omaxprice}}", 10).toLocaleString());
 
     $("#rprice0").text(parseInt("{{omindate}}", 10));
     $("#rprice1").text(parseInt("{{omaxdate}}", 10));
 
-    $("#nprice0").text(parseInt("{{ominkm}}", 10));
-    $("#nprice1").text(parseInt("{{omaxkm}}", 10));
+    $("#nprice0").text(parseInt("{{ominkm}}", 10).toLocaleString());
+    $("#nprice1").text(parseInt("{{omaxkm}}", 10).toLocaleString());
 
     $("#slider-range").slider({
         range: true,
-        step:10000,
+        step: 10000,
         min: 0,
         max: parseInt("{{maxprice}}", 10),
         values: [parseInt("{{ominprice}}", 10), parseInt("{{omaxprice}}", 10)],
         slide: function (event, ui) {
-            $("#price0").text(ui.values[0]);
-            $("#price1").text(ui.values[1]);
+            $("#price0").text(ui.values[0].toLocaleString());
+            $("#price1").text(ui.values[1].toLocaleString());
         }
     });
     $("#slider-range1").slider({
@@ -85,13 +122,13 @@
     });
     $("#slider-range2").slider({
         range: true,
-        step:10000,
+        step: 10000,
         min: 0,
         max: parseInt("{{maxkm}}", 10),
         values: [parseInt("{{ominkm}}", 10), parseInt("{{omaxkm}}", 10)],
         slide: function (event, ui) {
-            $("#nprice0").text(ui.values[0]);
-            $("#nprice1").text(ui.values[1]);
+            $("#nprice0").text(ui.values[0].toLocaleString());
+            $("#nprice1").text(ui.values[1].toLocaleString());
         }
     });
     $('.ui-slider-range').css("background", "#616161");
@@ -107,7 +144,7 @@
         $("#datemax").val(date[1]);
         $("#kmmin").val(km[0]);
         $("#kmmax").val(km[1]);
-        $( "form" ).submit();
+        $("form").submit();
 
     }
 </script>
