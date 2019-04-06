@@ -373,38 +373,17 @@ def settings(request):
                     upuser.update(is_admin=False)
                 else:
                     print("chyba")
-    if not current_user(request.session.get('user_id')).is_admin:
+    cuser = current_user(request.session.get('user_id'))
+    if not cuser or not cuser.is_admin:
         return redirect("/")
     return render(request, "./settings.html",
                   {"user": current_user(request.session.get('user_id')), "car_list": sorted_dict,
                    "users": list(User.objects.all())})
 
 def remove_user(request):
-    if current_user(request.session.get("user_id")).is_admin:
+    cuser = current_user(request.session.get("user_id"))
+    if cuser.is_admin:
         user_id = request.GET.get("user_id")
         user = User.objects.filter(id=user_id)
         user.delete()
     return redirect("/settings")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -4,21 +4,53 @@
     <form method="post">
         {% csrf_token %}
         <div class="row">
-            <div class="col s12">
+            <div class="col s2">
+                <span style="padding-left: 20px;">Profil</span>
+            </div>
+            <div class="col s3">
+                <span class="">Práva</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s11">
                 {% for nuser in users %}
-                <div class="col s12">
-
-                    <label>
-                        <input name="{{ nuser.id }}" type="checkbox"{%if nuser.is_admin %} checked="checked"{%endif %} />
-                        <span>{{nuser.username}}</span>
+                <div class="row col s12">
+                    <div class="col s2">
+                        <a href="/profile?user_id={{nuser.id}}">{{nuser.username}}</a>
+                    </div>
+                    <div class="col s3">
+                        <label>
+                            <input name="{{ nuser.id }}" type="checkbox" {%if nuser.is_admin %} checked="checked"
+                                   {% endif %}/>
+                            <span></span>
                         </label>
+                    </div>
+                    <div class="col s2" style="width: 120px">
+                        <button class="btn waves-effect waves-light red" type="button"
+                                onclick="remove('{{ nuser.id }}')">
+                            Odstranit
+                        </button>
+                    </div>
                 </div>
                 {% endfor %}
-                <button class="btn waves-effect waves-light grey darken-2" type="submit" name="action">Uložit nastavení práv
-                        <i class="material-icons right">send</i>
-                    </button>
+                </ul>
+                <button class="btn waves-effect waves-light grey darken-2" type="submit" name="action">Uložit nastavení
+                    práv
+                    <i class="material-icons right">send</i>
+                </button>
             </div>
         </div>
     </form>
 </main>
 {% include "footer.html" %}
+<script>
+    function remove(id) {
+        $.ajax({
+            url: window.location.origin + '/remove_user?user_id=' + id,
+            type: "GET",
+            success: function () {
+                location.reload();
+            }
+        });
+    }
+</script>

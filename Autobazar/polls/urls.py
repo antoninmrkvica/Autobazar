@@ -22,5 +22,6 @@ urlpatterns = [
     path('add_comment', views.add_comment, name='add_comment'),
     path('remove_comment', views.remove_comment, name='remove_comment'),
     path('settings', views.settings, name='settings'),
+    path('remove_user', views.remove_user, name='remove_user'),
 
 ]
