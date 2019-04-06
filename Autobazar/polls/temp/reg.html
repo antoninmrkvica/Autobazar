@@ -5,24 +5,24 @@
             {% csrf_token %}
             <div class="row col s6 offset-s3">
                 <div class="input-field col m4 s12">
-                    <input id="username" type="text" class="validate" name="username">
+                    <input id="username" type="text" class="validate" name="username" required>
                     <label class="active" for="username">Uživatelské jméno</label>
                 </div>
 
                 <div class="input-field col m4 s12">
-                    <input id="passwd" type="password" class="validate" name="passwd">
+                    <input id="passwd" type="password" class="validate" name="passwd" required>
                     <label class="active" for="passwd">Heslo</label>
                 </div>
                 <div class="input-field col m4 s12">
-                    <input id="passwdconfirm" type="password" class="validate" name="passwdconfirm">
+                    <input id="passwdconfirm" type="password" class="validate" name="passwdconfirm" required>
                     <label class="active" for="passwdconfirm">Znovu heslo</label>
                 </div>
                 <div class="input-field col m4 s12">
-                    <input id="email" type="text" class="validate" name="email">
+                    <input id="email" type="email" class="validate" name="email" required>
                     <label class="active" for="email">E-mail</label>
                 </div>
                 <div class="input-field col m4 s12">
-                    <input id="phone" type="text" class="validate" name="phone">
+                    <input id="phone" type="number" class="validate" name="phone" required>
                     <label class="active" for="phone">Telefoní číslo</label>
                 </div>
                 <div class="col">

@@ -8,7 +8,7 @@
         <div class="row">
             <div class="row col">
                 <div class="input-field col s6 m3">
-                    <select class="zn">
+                    <select class="zn" required>
                         <option value="" disabled selected>Zvol značku auta</option>
                         {% for mark in marks %}
                         <option value="{{ mark }}">{{ mark }}</option>
@@ -19,8 +19,8 @@
                 {% for item, name in car_param %}
                 {% if item == 'turbo' %}
                 <div class="input-field  col">
-                    <input type="hidden" id="turbo" name="turbo">
-                    <select class="turb">
+                    <input type="hidden" id="turbo" name="turbo" required>
+                    <select class="turb" required>
                         <option value="Ne">Ne</option>
                         <option value="Ano">Ano</option>
 
@@ -29,30 +29,30 @@
                 </div>
                 {% else %}
                 <div class="input-field col">
-                    <input id="{{ item }}" type="text" class="validate" name="{{ item }}">
+                    <input id="{{ item }}" type="text" class="validate" name="{{ item }}" required>
                     <label class="active" id="{{ item }}l" for="{{ item }}">{{ name }}</label>
                 </div>
                 {% endif %}
                 {% endfor %}
 
                 <div class="input-field col s11">
-                    <textarea id="popis" class="materialize-textarea" name="popis"></textarea>
+                    <textarea id="popis" class="materialize-textarea" name="popis" required></textarea>
                     <label for="popis">Popis</label>
                 </div>
                 <div class="input-field col s11">
-                    <textarea id="poskozeni" class="materialize-textarea" name="poskozeni"></textarea>
+                    <textarea id="poskozeni" class="materialize-textarea" name="poskozeni" required></textarea>
                     <label for="poskozeni">Poškození</label>
                 </div>
 
                 <div class="input-field col s11">
-                    <textarea id="opravy" class="materialize-textarea" name="opravy"></textarea>
+                    <textarea id="opravy" class="materialize-textarea" name="opravy" required></textarea>
                     <label for="opravy">Opravy</label>
                 </div>
 
                 <div class="file-field input-field col s11">
                     <div class="btn grey darken-2">
                         <span>Přidat obrázky</span>
-                        <input type="file" id="img" multiple name="files">
+                        <input type="file" id="img" multiple name="files" required>
                     </div>
                     <div class="file-path-wrapper">
                         <input class="file-path validate" type="text">
