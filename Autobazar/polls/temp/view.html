@@ -73,12 +73,23 @@
                 </div>
                 <br>
                 <br>
-
                 <div class="col s12 m5">
-                    <button type="button" class="btn grey darken-2 pulse" onclick="buy_car();">Chci koupit tohle auto
-                    </button>
+                {% if user %}
+                    <a class="btn grey darken-2 pulse tooltipped" data data-tooltip="Kontaktovat majitele automobilu můžete Emailem nebo Telefon, který se nachází v jeho profilu
+                        nebo prostřednictvím toho webu, kdy se odešle majiteli Email s vašimi kontakními údaji." onclick="buy_car();">Chci koupit tohle auto
+                    </a>
 
+                {% else %}
+                    <a href="/login" class="center" style="color: black; text-decoration: underline">Pro odkup vozidla se prosím příhlaště.</a>
+                    <br>
+                    <br>
+
+                    <a class="btn grey darken-2 pulse tooltipped" style="left: 20px" data data-tooltip="Kontaktovat majitele automobilu můžete Emailem nebo Telefon, který se nachází v jeho profilu
+                        nebo prostřednictvím toho webu, kdy se odešle majiteli Email s vašimi kontakními údaji." onclick="buy_car();" disabled>Chci koupit tohle auto
+                    </a>
+                {% endif %}
                 </div>
+
             </div>
         </div>
     </div>
@@ -89,6 +100,10 @@
 {% include "footer.html" %}
 
 <script type="application/javascript">
+    $(document).ready(function(){
+        $('.tooltipped').tooltip();
+    });
+
     function buy_car() {
         $.ajax({
             url: window.location.origin + '/buy_car?car_id=' + "{{ car.id }}" + "&url=" + window.location.href,
